@@ -91,6 +91,12 @@ def build_response(url, card):
        
     }
 
+def no_podcast_response(podcast):
+	return a.basic_response("Was Unabled to Locate A Podcast by the name: " + podcast)
+
+def no_podcast_guest(podcast,guest):
+	return a.basic_response("Was Unabled To Locate an episode of " + podcast + " featuring " + guest)
+
 def intent_recent_podcast(intent_request, session):
 	text = intent_request['slots']['podcast']['value'].lower()
 	try:
@@ -99,14 +105,22 @@ def intent_recent_podcast(intent_request, session):
 		guest = None
 
 	pod_key = podcast_key(text)
-	feed = podcast_map(pod_key)
-	pod = recent_podcast_stream(feed,guest)
-	pod["image"] = podcast_img(pod_key)
-	pod["podcast"] = "dlm"
+	if pod_key is not None:
+		podcast = podcast_map(pod_key)
+		feed = podcast["stream"]
+		pod = recent_podcast_stream(feed,guest)
+		pod["image"] = podcast_img(pod_key)
+		pod["podcast"] = pod_key
 
-	card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
-	response = build_response(pod["url"],card)
-	return response
+		if guest is not None and pod["url"] == "":
+			return no_podcast_guest(podcast["name"],guest)
+		else:
+			card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
+			response = build_response(pod["url"],card)
+			return response
+	else: 
+		response = no_podcast_response(text)
+		return response
 
 # ----------- HELPERS ----------------
 def cleanhtml(raw_html):
