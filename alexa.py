@@ -28,6 +28,16 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         'shouldEndSession': should_end_session
     } 
 
+def basic_response(text):
+	return {
+		'response' : {
+			'outputSpeech' : {
+				'type' : 'PlainText',
+				'text' : text
+			},
+			'shouldEndSession':True
+		}
+	}
 def alexa_build_response(session_attributes, speechlet_response):
     return {
         'version': '1.0',
