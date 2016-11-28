@@ -97,37 +97,15 @@ def intent_recent_podcast(intent_request, session):
 		guest = intent_request['slots']['guest']['value']
 	except KeyError:
 		guest = None
-		
-	if re.search(r'(?i)doug loves movie',text):
-		feed = podcast_map("dlm")
-		pod = recent_podcast_stream(feed,guest)
-		pod["image"] = podcast_img("dlm")
-		pod["podcast"] = "dlm"
 
-	elif re.search(r'(?i)(jericho|jerico)',text):
-		feed = podcast_map("jericho")
-		pod = recent_podcast_stream(feed,guest)
-		pod["image"] = podcast_img("jericho")
-		pod["podcast"] = "jericho"
-
-	elif re.search(r'(?i)(stone cold)',text):
-		feed = podcast_map("stonecold")
-		pod = recent_podcast_stream(feed,guest)
-		pod["image"] = podcast_img("stonecold")
-		pod["podcast"] = "stonecold"
-
-	elif re.search(r'(?i)(snap)',text):
-		feed = podcast_map("snap")
-		pod = recent_podcast_stream(feed,guest)
-		pod["image"] = podcast_img("snap")
-		pod["podcast"] = "snap"
-	else:
-		pod = {"url" : "","description":"","title":"","image": "","podcast" : False}
-		card = {"card":{}}
+	pod_key = podcast_key(text)
+	feed = podcast_map(pod_key)
+	pod = recent_podcast_stream(feed,guest)
+	pod["image"] = podcast_img(pod_key)
+	pod["podcast"] = "dlm"
 
 	card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
 	response = build_response(pod["url"],card)
-	response["sessionAttributes"] = pod
 	return response
 
 # ----------- HELPERS ----------------
