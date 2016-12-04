@@ -41,7 +41,7 @@ def return_guest_object(item, guest):
 				print("Found Guest: " + guest)
 				url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
 				print(entry.find('description').text.strip())
-				desc = cleanhtml(entry.find('description').text.strip())
+				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 				title = entry.find('title').text.strip()
 				break
 			else: 
@@ -57,7 +57,7 @@ def return_recent_object(item):
 	    # print(entry.find('description').text)
 		try:
 		    url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
-		    desc = cleanhtml(entry.find('description').text.strip())
+		    desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 		    title = entry.find('title').text.strip()
 		    break
 		except AttributeError:
@@ -125,5 +125,9 @@ def intent_recent_podcast(intent_request, session):
 def cleanhtml(raw_html):
 	cleanr = re.compile('<.*?>')
 	cleantext = re.sub(cleanr, '', raw_html)
+	return cleantext
+def cleanCDATA(text):
+	cleanr = re.compile('<!\[CDATA\[.*?\]\]>')
+	cleantext = re.sub(cleanr,'',text)
 	return cleantext
 
