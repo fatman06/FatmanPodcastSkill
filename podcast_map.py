@@ -13,10 +13,16 @@ def podcast_map():
 	      "image":"",
 	      "name":"Talk Is Jericho"
 	   },
-	   r'(?i)(stone cold|steve austin)':{
+	   r'(?i)(stone cold|steve austin).+(unleash)':{
 	      "stream":"http://www.podcastone.com/podcast?categoryID2=436",
 	      "image":"",
-	      "name":"Steve Austin Podcast"
+	      "name":"Steve Austin Unleashed Podcast"
+	   },
+	   r'(?i)(stone cold|steve austin)':{
+	   	  "stream" : "http://www.podcastone.com/podcast?categoryID2=542",
+	   	  "image" : "",
+	   	  "name" : "The Steve Austin Show"
+
 	   },
 	   r'(?i)(snap)':{
 	      "stream":"http://feeds.wnyc.org/snapjudgment-wnyc",
