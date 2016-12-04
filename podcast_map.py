@@ -28,127 +28,127 @@ def podcast_map():
 	      "image":"",
 	      "name":"What Culture Wrestling"
 	   },
-	   "2_dope_queens":{
+	   r'(?i)(two dope|dope queen|2 dope)':{
 	      "stream":"http://feeds.wnyc.org/2dopequeens",
 	      "image":"",
 	      "name":"2 Dope Queens"
 	   },
-	   "99_invisible":{
+	   r'(?i)(Ninety-Nine|Ninety Nine) (percent| per) (inv)+':{
 	      "stream":"http://feeds.99percentinvisible.org/99percentinvisible",
 	      "image":"",
 	      "name":"99% Invisible"
 	   },
-	   "cbb":{
+	   r'(?i)(Comedy Bang)':{
 	      "stream":"http://rss.earwolf.com/comedy-bang-bang",
 	      "image":"",
 	      "name":"Comedy Bang Bang: The Podcast"
 	   },
-	   "crimetown":{
+	   r'(?i)(crimetown|crime town)':{
 	      "stream":"http://feeds.gimletmedia.com/crimetownshow",
 	      "image":"",
 	      "name":"Crimetown"
 	   },
-	   "criminal":{
+	   r'(?i)(criminal)':{
 	      "stream":"http://thisiscriminal.com/feed/",
 	      "image":"",
 	      "name":"Criminal"
 	   },
-	   "hardcore_history":{
+	   r'(?i)(Dan Carlin.+|^)(Hard).+(Hist)':{
 	      "stream":"http://feeds.feedburner.com/dancarlin/commonsense?format=xml",
 	      "image":"",
 	      "name":"Dan Carlin's Hardcore History"
 	   },
-	   "story_central":{
+	   r'(?i)(Disney.+|^)(Story).+(Central)':{
 	      "stream":"https://public-static.disneystorycentral.com/ddb/storycast/DSC_Podcast.xml",
 	      "image":"",
 	      "name":"Disney Story Central Podcast"
 	   },
-	   "freakonomics":{
+	   r'(?i)(freak).+(radio|$)':{
 	      "stream":"http://feeds.feedburner.com/freakonomicsradio",
 	      "image":"",
 	      "name":"Freakonomics Radio"
 	   },
-	   "fresh_air":{
+	   r'(?i)(fresh air)':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=381444908",
 	      "image":"",
 	      "name":"Fresh Air"
 	   },
-	   "hidden_brain":{
+	   r'(?i)(Hidden).+(brain|brian)':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510308",
 	      "image":"",
 	      "name":"Hidden Brain"
 	   },
-	   "homecoming":{
+	   r'(?i)(home)(.+|)(coming|cumming)':{
 	      "stream":"http://feeds.gimletmedia.com/homecomingshow",
 	      "image":"",
 	      "name":"Homecoming"
 	   },
-	   "hibt":{
+	   r'(?i)(how).+(I|eye).+(built|build)(.+|$)(this|$)':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510313",
 	      "image":"",
 	      "name":"How I Built This"
 	   },
-	   "invisibilia":{
+	   r'(?i)(invisibil)(e|ia|$)':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510307",
 	      "image":"",
 	      "name":"Invisibilia"
 	   },
-	   "lpotl":{
+	   r'(?i)(last)(.+)(pod)(.+)(left|$)':{
 	      "stream":"http://cavecomedyradio.com/pod-series/last-podcast-on-the-left/feed/",
 	      "image":"",
 	      "name":"Last Podcast On The Left"
 	   },
-	   "lifeafter":{
+	   r'(?i)(life)(.+|)(after)':{
 	      "stream":"http://feeds.megaphone.fm/themessage",
 	      "image":"",
 	      "name":"LifeAfter"
 	   },
-	   "lore":{
+	   r'(?i)(lore|loar)':{
 	      "stream":"http://lorepodcast.libsyn.com/rss",
 	      "image":"",
 	      "name":"Lore"
 	   },
-	   "making_oprah":{
+	   r'(?i)(making)(.+)(oprah)':{
 	      "stream":"http://feeds.feedburner.com/wbez-making",
 	      "image":"",
 	      "name":"Making Oprah"
 	   },
-	   "mmp":{
+	   r'(?i)(mon)(.+)(morn)(.+)(pod|$)':{
 	      "stream":"http://billburr.libsyn.com/rss",
 	      "image":"",
 	      "name":"Monday Morning Podcast"
 	   },
-	   "mdwap":{
+	   r'(?i)(My|^)(.+)(dad).+(wrote|write).+(porn|$)':{
 	      "stream":"http://rss.acast.com/mydadwroteaporno",
 	      "image":"",
 	      "name":"My Dad Wrote A Porno"
 	   },
-	   "my_fav_murder":{
+	   r'(?i)((My|^).+(Fav).+(Mur).+(\s|$)|Karen Kilgariff|Georgia Hardstark)':{
 	      "stream":"http://rss.art19.com/my-favorite-murder-with-karen-kilgariff-and-georgia-hardstark",
 	      "image":"",
 	      "name":"My Favorite Murder with Karen Kilgariff and Georgia Hardstark"
 	   },
-	   "npr_politics":{
+	   r'(?i)(NPR).+(pol).+$':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510310",
 	      "image":"",
 	      "name":"NPR Politics Podcast"
 	   },
-	   "planet_money":{
+	   r'(?i)(plan).+(mon).+$':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510289",
 	      "image":"",
 	      "name":"Planet Money"
 	   },
-	   "radiolab":{
-	      "stream":"http://feeds.wnyc.org/radiolab",
-	      "image":"",
-	      "name":"Radiolab"
-	   },
-	   "more_perfect":{
+	   r'(?i)((radio)(.+|)(lab).+(pres).+|^)(more).+(perfect)':{
 	      "stream":"http://feeds.wnyc.org/moreperfect",
 	      "image":"",
 	      "name":"Radiolab Presents: More Perfect"
 	   },
-	   "remarkable_lives":{
+	   r'(?i)(radio)(.+|)(lab)':{
+	      "stream":"http://feeds.wnyc.org/radiolab",
+	      "image":"",
+	      "name":"Radiolab"
+	   },
+	   r'(?i)((Remark).+(live)|^)(.+|)((trag).+(death)|$)':{
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:242596778/sounds.rss",
 	      "image":"",
 	      "name":"Remarkable Lives. Tragic Deaths."
