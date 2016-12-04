@@ -71,15 +71,14 @@ def get_welcome_response():
 
 def handle_session_end_request():
     card_title = "Session Ended"
-    speech_output = "Thank you for trying the Alexa Skills Kit sample. " \
-                    "Have a nice day! "
     # Setting this to true ends the session and exits the skill.
-    should_end_session = True
-    response = alexa_build_response({}, build_speechlet_response(
-        card_title, speech_output, None, should_end_session))
-    response["directives"] = [{"type": "AudioPlayer.Stop"}]
-    return response
-
+	res = {
+		'response' : {
+			'directives' : [{"type": "AudioPlayer.Stop"}],
+			'shouldEndSession':True
+		}
+	}
+    return res
 
 
 # --------------- Events ------------------
