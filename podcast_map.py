@@ -33,10 +33,10 @@ def podcast_map():
 	      "image":"",
 	      "name":"2 Dope Queens"
 	   },
-	   r'(?i)(Ninety-Nine|Ninety Nine) (percent| per) (inv)+':{
+	   r'(?i)(Ninety-Nine|Ninety Nine|99) (percent| per |) (inv)+':{
 	      "stream":"http://feeds.99percentinvisible.org/99percentinvisible",
 	      "image":"",
-	      "name":"99% Invisible"
+	      "name":"99 Percent Invisible"
 	   },
 	   r'(?i)(Comedy Bang)':{
 	      "stream":"http://rss.earwolf.com/comedy-bang-bang",
@@ -178,7 +178,7 @@ def podcast_map():
 	      "image":"",
 	      "name":"Stuff You Missed in History Class"
 	   },
-	   r'(?i)(stuff|).+(should).+(know)':{
+	   r'(?i)(stuff).+(should).+(know)':{
 	      "stream":"http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss",
 	      "image":"",
 	      "name":"Stuff You Should Know"
@@ -262,6 +262,256 @@ def podcast_map():
 	      "stream":"https://wtfpod.libsyn.com/rss",
 	      "image":"",
 	      "name":"WTF with Marc Maron Podcast"
+	   },
+	   r'(?i)(accused)':{
+	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:234220545/sounds.rss",
+	      "image":"",
+	      "name":"Accused"
+	   },
+	   r'(?i)((Anna).(Far)|(Unqualified))':{
+	      "stream":"http://annafarisisunqualified.libsyn.com/rss",
+	      "image":"",
+	      "name":"Anna Faris Is Unqualified"
+	   },
+	   r'(?i)((ask).(me).(another))':{
+	      "stream":"http://www.npr.org/rss/podcast.php?id=510299",
+	      "image":"",
+	      "name":"Ask Me Another"
+	   },
+	   r'(?i)((Back)(.|)(story)|(America).+(his).+(guy).+)':{
+	      "stream":"http://feeds.feedburner.com/BackStoryRadio",
+	      "image":"",
+	      "name":"BackStory with the American History Guys"
+	   },
+	   r'(?i)(car).(talk)':{
+	      "stream":"http://www.npr.org/rss/podcast.php?id=510208",
+	      "image":"",
+	      "name":"Car Talk"
+	   },
+	   r'(?i)(case)(.|)(file).(true).(crime)':{
+	      "stream":"http://casefile.libsyn.com/rss",
+	      "image":"",
+	      "name":"Casefile True Crime"
+	   },
+	   r'(?i)(code)(.|)(switch)':{
+	      "stream":"http://www.npr.org/rss/podcast.php?id=510312",
+	      "image":"",
+	      "name":"Code Switch"
+	   },
+	   r'(?i)(comm).+(sense)':{
+	      "stream":"http://www.dancarlin.com/cswdc-feedburner.xml",
+	      "image":"",
+	      "name":"Common Sense with Dan Carlin"
+	   },
+	   r'(?i)(death).+(sex).+(money)':{
+	      "stream":"https://public-static.disneystorycentral.com/ddb/storycast/DSC_Podcast.xml",
+	      "image":"",
+	      "name":"Death, Sex & Money"
+	   },
+	   r'(?i)(do).+(listen).+(twice)':{
+	      "stream":"http://feed.thisamericanlife.org/DoListenTwice",
+	      "image":"",
+	      "name":"Do Listen Twice"
+	   },
+	   r'(?i)((five)(.|)(thirty)(.|)(eight)).+(pol)':{
+	      "stream":"https://secure.espn.com/espnradio/podcast/feeds/itunes/podCast?id=14554755",
+	      "image":"",
+	      "name":"FiveThirtyEight Politics"
+	   },
+	   r'(?i)(gilm|gil.+mor).+(guy)':{
+	      "stream":"http://www.spreaker.com/user/8249928/episodes/feed?clickid=wAUT5HVl%3A3oTySq3AnxOUwK2UkkQJcU1y0u-180&irpid=27795&sharedid=&mp_value1=VigLink",
+	      "image":"",
+	      "name":"Gilmore Guys"
+	   },
+	   r'(?i)(BBC|^).(glob).+(new)':{
+	      "stream":"http://www.bbc.co.uk/programmes/p02nq0gn/episodes/downloads.rss",
+	      "image":"",
+	      "name":"BBC Global News Podcast"
+	   },
+	   r'(?i)((Gramm).+(girl))|(quick).+(dirty).+(tip).+(writing)':{
+	      "stream":"http://www.qdnow.com/grammar.xml",
+	      "image":"",
+	      "name":"Grammar Girl Quick and Dirty Tips for Better Writing"
+	   },
+	   r'(?i)(guy).+(we).(f.+d|screw|f.+k)':{
+	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:68891950/sounds.rss",
+	      "image":"",
+	      "name":"Guys We Fucked"
+	   },
+	   r'(?i)(Harry).+(Potter).+(sac).+(tex)':{
+	      "stream":"http://feeds.feedburner.com/HarryPotterAndTheSacredText",
+	      "image":"",
+	      "name":"Harry Potter and the Sacred Text"
+	   },
+	   r'(?i)(heavy)(\s|)(weight)':{
+	      "stream":"http://feeds.gimletmedia.com/heavyweightpodcast",
+	      "image":"",
+	      "name":"Heavyweight"
+	   },
+	   r'(?i)(hor[a-z]+)\s(line)':{
+	      "stream":"https://feeds.megaphone.fm/horizonline",
+	      "image":"",
+	      "name":"Horizon Line"
+	   },
+	   r'(?i)(how).+(get).+(made)':{
+	      "stream":"http://rss.earwolf.com/how-did-this-get-made",
+	      "image":"",
+	      "name":"How Did This Get Made?"
+	   },
+	   r'(?i)(in).+(the).+(dark)':{
+	      "stream":"https://feeds.publicradio.org/public_feeds/in-the-dark/itunes/rss",
+	      "image":"",
+	      "name":"In the Dark"
+	   },
+	   r'(?i)(jock)(.o|o)':{
+	      "stream":"http://jockopodcast2.com/feed/podcast/",
+	      "image":"",
+	      "name":"Jocko Podcast"
+	   },
+	   r'(?i)(joe).+(osteen|austin)':{
+	      "stream":"https://www.joelosteen.com/Views/RSS/Feed?t=PodcastAudio&ct=CustomList&cst=Podcasts",
+	      "image":"",
+	      "name":"Joel Osteen Podcast"
+	   },
+	   r'(?i)(keep).+(it).+(1600|(six)(.|)(teen).+(hun))':{
+	      "stream":"http://feeds.feedburner.com/KeepinIt1600",
+	      "image":"",
+	      "name":"Keepin' it 1600"
+	   },
+	   r'(?i)(ma[ue]ve).+(amer)':{
+	      "stream":"http://feeds.feedburner.com/MaeveInAmerica",
+	      "image":"",
+	      "name":"Maeve In America"
+	   },
+	   r'(?i)(mod).+(love)':{
+	      "stream":"http://feeds.wbur.org/modernlove/podcast",
+	      "image":"",
+	      "name":"Modern Love"
+	   },
+	   r'(?i)(myth).+(legend)':{
+	      "stream":"http://mythpodcast.libsyn.com/rss",
+	      "image":"",
+	      "name":"Myths and Legends"
+	   },
+	   r'(?i)(Note).+(t).+(Self)':{
+	      "stream":"http://www.npr.org/rss/podcast.php?id=510310",
+	      "image":"",
+	      "name":"Note to Self"
+	   },
+	   r'(?i)(On).+(Being)|((k|ch)ris).+(tip)':{
+	      "stream":"http://www.onbeing.org/podcasts/podcast.xml",
+	      "image":"",
+	      "name":"On Being with Krista Tippett"
+	   },
+	   r'(?i)(pard).+(m).+(take)':{
+	      "stream":"http://feeds.feedburner.com/PardonMyTake",
+	      "image":"",
+	      "name":"Pardon My Take"
+	   },
+	   r'(?i)(Real).+(Time).+(bill).+(m)':{
+	      "stream":"http://billmaher.hbo.libsynpro.com/rss",
+	      "image":"",
+	      "name":"Real Time with Bill Maher"
+	   },
+	   r'(?i)(repl).+(al)':{
+	      "stream":"http://feeds.gimletmedia.com/hearreplyall",
+	      "image":"",
+	      "name":"Reply All"
+	   },
+	   r'(?i)(revis).+(hist)':{
+	      "stream":"http://feeds.feedburner.com/RevisionistHistory",
+	      "image":"",
+	      "name":"Revisionist History"
+	   },
+	   r'(?i)(sci).+(fri)':{
+	      "stream":"http://www.sciencefriday.com/feed/podcast/podcast-episode",
+	      "image":"",
+	      "name":"Science Friday"
+	   },
+	   r'(?i)(secret).+(crime).+(audio)':{
+	      "stream":"https://rss.art19.com/secrets-crimes-audiotape",
+	      "image":"",
+	      "name":"Secrets, Crimes & Audiotape"
+	   },
+	   r'(?i)(sha).+(friend)':{
+	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:44683272/sounds.rss",
+	      "image":"",
+	      "name":"Shane And Friends"
+	   },
+	   r'(?i)(slate).+(trump(.|)cast)':{
+	      "stream":"http://feeds.megaphone.fm/trumpcast",
+	      "image":"",
+	      "name":"Slate's Trumpcast"
+	   },
+	   r'(?i)(sleep).+(me)':{
+	      "stream":"http://www.sleepwithmepodcast.com/feed/podcast/",
+	      "image":"",
+	      "name":"Sleep With Me"
+	   },
+	   r'(?i)(some).+(kno).+(some)':{
+	      "stream":"http://www.cbc.ca/podcasting/includes/sks.xml",
+	      "image":"",
+	      "name":"Someone Knows Something"
+	   },
+	   r'(?i)(some).+(sho).+(kno)':{
+	      "stream":"http://syskpod.libsyn.com/rss",
+	      "image":"",
+	      "name":"Something You Should Know"
+	   },
+	   r'(?i)(strangler)':{
+	      "stream":"http://rss.earwolf.com/stranglers",
+	      "image":"",
+	      "name":"Stranglers"
+	   },
+	   r'(?i)(TED)(.|)(talk)':{
+	      "stream":"http://feeds.feedburner.com/TEDTalks_audio",
+	      "image":"",
+	      "name":"TEDTalks (audio)"
+	   },
+	   r'(?i)(Adv).+(zone)':{
+	      "stream":"http://adventurezone.libsyn.com/rss",
+	      "image":"",
+	      "name":"The Adventure Zone"
+	   },
+	   r'(?i)(art).+(charm)':{
+	      "stream":"http://theartofcharmpodcast.theartofcharm.libsynpro.com/rss",
+	      "image":"",
+	      "name":"The Art of Charm"
+	   },
+	   r'(?i)(art).+(man)':{
+	      "stream":"http://feeds.feedburner.com/artofmanlinesspodcast",
+	      "image":"",
+	      "name":"The Art of Manliness"
+	   },
+	   r'(?i)(new).+(york).+(rad).+(hour)':{
+	      "stream":"http://feeds.wnyc.org/newyorkerradiohour",
+	      "image":"",
+	      "name":"The New Yorker Radio Hour"
+	   },
+	   r'(?i)(run)(\s|-|)(up)':{
+	      "stream":"https://feeds.podtrac.com/pLNosqouzJak",
+	      "image":"",
+	      "name":"The Run-Up"
+	   },
+	   r'(?i)(anthony|tony).+(rob)':{
+	      "stream":"http://tonyrobbins.libsyn.com/rss",
+	      "image":"",
+	      "name":"The Tony Robbins Podcast"
+	   },
+	   r'(?i)(way).+(hear).+\s(it)|(mike).+(row)':{
+	      "stream":"http://thewayiheardit.rsvmedia.com/rss/",
+	      "image":"",
+	      "name":"The Way I Heard It with Mike Rowe"
+	   },
+	   r'(?i)((wak[ei]).+(up))|(sam).+(har)':{
+	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:59753170/sounds.rss",
+	      "image":"",
+	      "name":"Waking Up with Sam Harris"
+	   },
+	   r'(?i)(wel).+(night).+(vale)':{
+	      "stream":"http://nightvale.libsyn.com/rss",
+	      "image":"",
+	      "name":"Welcome to Night Vale"
 	   }
 	}
 	return podcast_map
