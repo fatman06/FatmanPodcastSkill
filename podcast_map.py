@@ -148,117 +148,117 @@ def podcast_map():
 	      "image":"",
 	      "name":"Radiolab"
 	   },
-	   r'(?i)((Remark).+(live)|^)(.+|)((trag).+(death)|$)':{
+	   r'(?i)((remark).+(live)|(trag).+(dea))':{
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:242596778/sounds.rss",
 	      "image":"",
 	      "name":"Remarkable Lives. Tragic Deaths."
 	   },
-	   "reveal":{
+	   r'(?i)(reveal)':{
 	      "stream":"http://feeds.revealradio.org/revealpodcast",
 	      "image":"",
 	      "name":"Reveal"
 	   },
-	   "spacevs":{
+	   r'(?i)(sci).+(vers|vs)':{
 	      "stream":"http://feeds.gimletmedia.com/sciencevs",
 	      "image":"",
 	      "name":"Science Vs - New Season"
 	   },
-	   "serial":{
+	   r'(?i)serial':{
 	      "stream":"http://feeds.serialpodcast.org/serialpodcast",
 	      "image":"",
 	      "name":"Serial"
 	   },
-	   "startalk":{
+	   r'(?i)(star)(.|)(talk)(\srad|||$)':{
 	      "stream":"https://feeds.soundcloud.com/users/soundcloud:users:38128127/sounds.rss",
 	      "image":"",
 	      "name":"StarTalk Radio"
 	   },
-	   "symihc":{
+	   r'(?i)(stuff|thing).+(miss).+(hist).+(class)':{
 	      "stream":"http://www.howstuffworks.com/podcasts/stuff-you-missed-in-history-class.rss",
 	      "image":"",
 	      "name":"Stuff You Missed in History Class"
 	   },
-	   "sysk":{
+	   r'(?i)(stuff|).+(should).+(know)':{
 	      "stream":"http://www.howstuffworks.com/podcasts/stuff-you-should-know.rss",
 	      "image":"",
 	      "name":"Stuff You Should Know"
 	   },
-	   "sword_scale":{
+	   r'(?i)(sword).+(scale)':{
 	      "stream":"http://rss.art19.com/sword-and-scale",
 	      "image":"",
 	      "name":"Sword and Scale"
 	   },
-	   "ted_radio_hour":{
+	   r'(?i)(Ted).(radio).(hour)':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510298",
 	      "image":"",
 	      "name":"TED Radio Hour"
 	   },
-	   "tmsidk":{
+	   r'(?i)(tell).(me).(some).+(know)':{
 	      "stream":"http://feeds.feedburner.com/freakonomicsradio",
 	      "image":"",
 	      "name":"Tell Me Something I Don't Know"
 	   },
-	   "dave_ramsey":{
+	   r'(?i)((Dave).(Ram))(.+show|.+$)':{
 	      "stream":"https://www.daveramsey.com/rss/view-feed/strFeeds/CrcSuccessStories-PressRelease-DaveSays",
 	      "image":"",
 	      "name":"The Dave Ramsey Show"
 	   },
-	   "dollop":{
+	   r'(?i)((Dollop)|(dave.anthony)|(Gareth Reynolds))':{
 	      "stream":"http://thedollop.libsyn.com/rss",
 	      "image":"",
 	      "name":"The Dollop with Dave Anthony and Gareth Reynolds"
 	   },
-	   "history_of_rome":{
+	   r'(?i)(hist).+(rome)':{
 	      "stream":"http://feeds.feedburner.com/TheHistoryOfRome",
 	      "image":"",
 	      "name":"The History of Rome"
 	   },
-	   "joe_rogan":{
+	   r'(?i)(Joe Rogan)':{
 	      "stream":"http://joeroganexp.joerogan.libsynpro.com/rss",
 	      "image":"",
 	      "name":"The Joe Rogan Experience"
 	   },
-	   "moth":{
+	   r'(?i)the moth':{
 	      "stream":"http://feeds.themoth.org/themothpodcast",
 	      "image":"",
 	      "name":"The Moth"
 	   },
-	   "nerdist":{
+	   r'(?i)(nerd)(.+|)(is)':{
 	      "stream":"http://nerdist.libsyn.com/rss",
 	      "image":"",
 	      "name":"The Nerdist"
 	   },
-	   "tim_ferris":{
+	   r'(?i)(Tim).+(Ferr)':{
 	      "stream":"http://feeds.feedburner.com/thetimferrissshow",
 	      "image":"",
 	      "name":"The Tim Ferriss Show"
 	   },
-	   "american_life":{
+	   r'(?i)(th).+(Amer).+(life)':{
 	      "stream":"http://feed.thisamericanlife.org/talpodcast",
 	      "image":"",
 	      "name":"This American Life"
 	   },
-	   "undone":{
+	   r'(?i)(un)(.|)(done)':{
 	      "stream":"http://feeds.gimletmedia.com/undoneshow",
 	      "image":"",
 	      "name":"Undone"
 	   },
-	   "up_and_vanished":{
+	   r'(?i)(up)(.+)(vanish)':{
 	      "stream":"http://rss.art19.com/the-vanished-podcast",
 	      "image":"",
 	      "name":"Up and Vanished"
 	   },
-	   "wwdtm":{
+	   r'(?i)(wait)(.+)(don).+(tel).+(me)':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=344098539",
 	      "image":"",
 	      "name":"Wait Wait... Don't Tell Me!"
 	   },
-	   "wofh":{
+	   r'(?i)(wom[ae]).+(hour)':{
 	      "stream":"https://rss.art19.com/women-of-the-hour",
 	      "image":"",
 	      "name":"Women Of The Hour"
 	   },
-	   "wtf_marc_maron":{
+	   r'(?i)((wtf|what the)|^|)(.+|^|)(mar[ck]).+(mar)':{
 	      "stream":"https://wtfpod.libsyn.com/rss",
 	      "image":"",
 	      "name":"WTF with Marc Maron Podcast"
@@ -270,7 +270,8 @@ def find_podcast_regex(text):
 	response = None
 	podcast = podcast_map()
 	for k,v in podcast.items():
-		if re.search(k,text):
+		if re.search(re.compile(k),text):
 			return  v
+			break
 	return response	
 
