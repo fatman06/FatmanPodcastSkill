@@ -104,13 +104,12 @@ def intent_recent_podcast(intent_request, session):
 	except KeyError:
 		guest = None
 
-	pod_key = podcast_key(text)
-	if pod_key is not None:
-		podcast = podcast_map(pod_key)
+	podcast = find_podcast_regex(text)
+	if podcast is not None:
 		feed = podcast["stream"]
 		pod = recent_podcast_stream(feed,guest)
-		pod["image"] = podcast_img(pod_key)
-		pod["podcast"] = pod_key
+		pod["image"] = podcast["image"]
+		pod["podcast"] = podcast["name"]
 
 		if guest is not None and pod["url"] == "":
 			return no_podcast_guest(podcast["name"],guest)

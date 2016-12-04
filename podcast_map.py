@@ -1,29 +1,29 @@
 import re
 
-def podcast_map(key):
+def podcast_map():
 
 	podcast_map = {
-	   "dlm":{
+	   r'(?i)doug loves movie':{
 	      "stream":"http://feeds.feedburner.com/DougLovesMovies",
 	      "image":"",
 	      "name":"Doug Loves Movies"
 	   },
-	   "jericho":{
+	   r'(?i)(jericho|jerico)':{
 	      "stream":"http://www.podcastone.com/podcast?categoryID2=593",
 	      "image":"",
 	      "name":"Talk Is Jericho"
 	   },
-	   "stonecold":{
+	   r'(?i)(stone cold|steve austin)':{
 	      "stream":"http://www.podcastone.com/podcast?categoryID2=436",
 	      "image":"",
 	      "name":"Steve Austin Podcast"
 	   },
-	   "snap":{
+	   r'(?i)(snap)':{
 	      "stream":"http://feeds.wnyc.org/snapjudgment-wnyc",
 	      "image":"",
 	      "name":"Snap Judgement"
 	   },
-	   "whatculture":{
+	   r'(?i)(what culture|whatculture)':{
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:190525730/sounds.rss",
 	      "image":"",
 	      "name":"What Culture Wrestling"
@@ -264,31 +264,13 @@ def podcast_map(key):
 	      "name":"WTF with Marc Maron Podcast"
 	   }
 	}
-	try:
-		return podcast_map[key]
-	except KeyError:
-		return None
+	return podcast_map
 
-def podcast_img(key):
-	p_map = podcast_map(key)
-	try:
-		return p_map["image"]
-	except KeyError:
-		return None
-
-def podcast_key(text):
-	if re.search(r'(?i)doug loves movie',text):
-		key = "dlm"
-	elif re.search(r'(?i)(jericho|jerico)',text):
-		key = "jericho"
-	elif re.search(r'(?i)(stone cold|steve austin)',text):
-		key = "stonecold"
-	elif re.search(r'(?i)(snap)',text):
-		key = "snap"
-	elif re.search(r'(?i)(what culture|whatculture)',text):
-		key = "whatculture"
-	else:
-		key = None
-
-	return key
+def find_podcast_regex(text):
+	response = None
+	podcast = podcast_map()
+	for k,v in podcast.items():
+		if re.search(k,text):
+			return  v
+	return response	
 
