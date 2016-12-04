@@ -70,15 +70,15 @@ def get_welcome_response():
 
 
 def handle_session_end_request():
-    card_title = "Session Ended"
-    # Setting this to true ends the session and exits the skill.
-	res = {
-		'response' : {
-			'directives' : [{"type": "AudioPlayer.Stop"}],
-			'shouldEndSession':True
+	card_title = "Session Ended"
+	res={'response':
+		{'directives':[
+			{"type": "AudioPlayer.Stop"}
+			],
+		'shouldEndSession':True
 		}
 	}
-    return res
+	return res
 
 
 # --------------- Events ------------------
