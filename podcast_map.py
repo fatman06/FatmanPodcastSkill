@@ -7177,7 +7177,7 @@ def podcast_map():
 	   r'':{
 	      "stream":"http://feeds.feedburner.com/itpc/wwwwaylandws/Wayland_Productions/Were_Alive_-_Podcast/rssxml",
 	      "image":"",
-	      "name":"We're Alive - A "      Zombie" Story of Survival"
+	      "name":"We're Alive - A Zombie Story of Survival"
 	   },
 	   r'':{
 	      "stream":"http://rss.art19.com/were-alive-lockdown",
