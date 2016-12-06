@@ -8,11 +8,13 @@
 *.o
 *.so
 
+*.gitignore
 build.py
 test.py
 test_event.py
 zipfile.py
-
+scrape.py
+*.csv
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
