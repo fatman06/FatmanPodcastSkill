@@ -1,6 +1,6 @@
 from __future__ import print_function
-version = "0.0.50"
-print("Podcast Network Version " + version + " - Alpha")
+version = "0.1.0"
+print("Podcast Network Version " + version + " - Beta")
 
 import json
 import urllib2
