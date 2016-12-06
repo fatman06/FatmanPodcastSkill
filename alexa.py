@@ -47,7 +47,10 @@ def alexa_build_response(session_attributes, speechlet_response):
 
 def build_card(title, content, ctype='Simple',image=''):
 	#removing image unitl i can find a better option
-	return {'card': {'type':ctype, 'title': title, 'content': content[:1800]}}
+	if ctype=='Standard':
+		return {'card': {'type':ctype, 'title': title, 'text': content[:1800]}}
+	else:
+		return {'card': {'type':ctype, 'title': title, 'content': content[:1800]}}
 # --------------- Functions that control the skill's behavior ------------------
 
 def get_welcome_response():
