@@ -5,29 +5,41 @@ import urllib2
 import re
 from xml.etree import ElementTree as etree
 from podcast_map import *
+import traceback
 import alexa as a
 # --------------- Podcast Response -------------
 def recent_podcast_stream(stream_url, guest=None):
 
     #'http://feeds.feedburner.com/DougLovesMovies'
-    reddit_file = urllib2.urlopen(stream_url)
-    reddit_data = reddit_file.read()
-    reddit_file.close()
-    # entire feed
-    reddit_root = etree.fromstring(reddit_data)
-    item = reddit_root.findall('channel/item')
-    url = ""
-    reddit_feed=[]
+	try:
+		reddit_file = urllib2.urlopen(stream_url)
+		reddit_data = reddit_file.read()
+		reddit_file.close()
+		# entire feed
+		reddit_root = etree.fromstring(reddit_data)
+		item = reddit_root.findall('channel/item')
+		url = ""
+		reddit_feed=[]
 
-    if guest is not None:
-    	return return_guest_object(item, guest)
-    else:
-    	return return_recent_object(item)
+		if guest is not None:
+			return return_guest_object(item, guest)
+		else:
+			return return_recent_object(item)
+	except urllib2.HTTPError:
+		print("Stream Is Bad: " + stream_url)
+		#traceback.print_exc()
+		return {"url": "", "description": "","title" : ""}
+	except urllib2.URLError:
+		print("Stream is Bad: " + stream_url)
+		return None
+	except etree.ParseError:
+		None
 
 def return_guest_object(item, guest):
 
 	url = ""
 	desc = ""
+	title = ""
 	for entry in item:
 	    # get description, url, and thumbnail
 	    # print(entry.find('description').text)
@@ -43,7 +55,14 @@ def return_guest_object(item, guest):
 				print(entry.find('description').text.strip())
 				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 				title = entry.find('title').text.strip()
-				break
+				if re.search(r'(?i)mp3',url):
+					break
+				elif re.search(r'(?i)(mp4|m4v)',url):
+					#print("this has a video in it")
+					continue
+				else:
+					#print("Stream Does Not Have Mp3")
+					continue
 			else: 
 				continue     
 		except AttributeError:
@@ -52,14 +71,27 @@ def return_guest_object(item, guest):
 	return {"url": url, "description": desc,"title" : title}
 
 def return_recent_object(item):
+	url = ""
+	desc = ""
+	title = ""
 	for entry in item:
 	    # get description, url, and thumbnail
 	    # print(entry.find('description').text)
+
+		desc = ""
+		url = ""
+		title = ""
+
 		try:
 		    url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
 		    desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 		    title = entry.find('title').text.strip()
-		    break
+		    if re.search(r'(?i)mp3',url):
+		    	break
+		    elif re.search(r'(?i)(mp4|m4v|m4a)',url):
+		    	continue
+		    else:
+		    	continue
 		except AttributeError:
 			continue
 		# 	break

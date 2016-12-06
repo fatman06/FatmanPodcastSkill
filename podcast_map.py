@@ -759,11 +759,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"American English Pronunciation Podcast"
 	   },
-	   r'(?i)(anat).+(emer).+(med)':{
-	      "stream":"http://feeds.feedburner.com/AnatomyForEM",
-	      "image":"",
-	      "name":"Anatomy For Emergency Medicine"
-	   },
 	   r'(?i)(andy).+(stan).+(lead)':{
 	      "stream":"http://feeds.feedburner.com/AndyStanleyLeadershipPodcast",
 	      "image":"",
@@ -798,11 +793,6 @@ def podcast_map():
 	      "stream":"http://americanpublicmedia.publicradio.org/podcasts/xml/prairie_home_companion/news_from_lake_wobegon.xml",
 	      "image":"",
 	      "name":"APM: A Prairie Home Companion's News from Lake Wobegon"
-	   },
-	   r'(?i)(app).+(review)':{
-	      "stream":"http://crazymikesapps.com/feed/podcast/",
-	      "image":"",
-	      "name":"App Reviews for iPhone, iPad and Android Apps"
 	   },
 	   r'(?i)((apple).+(byte|bite))|((extra).+(crunch))':{
 	      "stream":"http://feed.cnet.com/feed/podcast/apple-byte-audio.xml",
@@ -1289,11 +1279,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Celtic Christmas Podcast"
 	   },
-	   r'(?i)(cgp|c.g.p).+(grey|gray)':{
-	      "stream":"http://cgpgrey.libsyn.com/rss",
-	      "image":"",
-	      "name":"CGP Grey"
-	   },
 	   r'(?i)(chan).+(thirty|33)':{
 	      "stream":"http://feeds.feedburner.com/Channel33",
 	      "image":"",
@@ -1768,11 +1753,6 @@ def podcast_map():
 	      "stream":"http://electioncollege.libsyn.com/rss",
 	      "image":"",
 	      "name":"Election College | Presidential Election History"
-	   },
-	   r'(?i)(Elevation.+Church)':{
-	      "stream":"http://feeds.feedburner.com/elevationipod",
-	      "image":"",
-	      "name":"Elevation Church Podcast"
 	   },
 	   r'(?i)(Eleven.+life)':{
 	      "stream":"http://eleventylife.libsyn.com/rss",
@@ -2599,11 +2579,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Joe Budden: Meet the Musician"
 	   },
-	   r'(?i)(Minute.With.Maxwell)|John Maxwell':{
-	      "stream":"http://johnmaxwell.podbean.com/feed/",
-	      "image":"",
-	      "name":"John Maxwell: A Minute With Maxwell"
-	   },
 	   r'(?i)(John Piper Sermons)':{
 	      "stream":"http://feed.desiringgod.org/messages.rss",
 	      "image":"",
@@ -2724,11 +2699,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Let My People Think on OnePlace.com"
 	   },
-	   r'(?i)(Life(.|)hacker)':{
-	      "stream":"http://revision3.com/lifehacker/itunes/mp4-hd30",
-	      "image":"",
-	      "name":"Lifehacker"
-	   },
 	   r'(?i)(Lilian Garcia)|Making Their Way':{
 	      "stream":"http://www.afterbuzztv.com/aftershows/making-their-way-to-the-ring-afterbuzz-tv/feed/",
 	      "image":"",
@@ -2773,11 +2743,6 @@ def podcast_map():
 	      "stream":"http://www.lse.ac.uk/assets/richmedia/webFeeds/publicLecturesAndEvents_iTunesStore.xml",
 	      "image":"",
 	      "name":"London School of Economics: Public lectures and events"
-	   },
-	   r'(?i)(Louisville.+Lectures)':{
-	      "stream":"http://www.blubrry.com/feeds/louisvillelectures.xml",
-	      "image":"",
-	      "name":"Louisville Lectures Internal Medicine Lecture Series Podcast"
 	   },
 	   r'(?i)(Love and Logic)':{
 	      "stream":"https://www.loveandlogic.com/feeds/loveandlogic.rss",
@@ -2954,11 +2919,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Mental Illness Happy Hour"
 	   },
-	   r'(?i)(Mental Math Secrets)':{
-	      "stream":"http://www.screencast.com/users/nerfherder/folders/Mental%20Math%20Secrets%20-%20Your%20Secret%20Weapon%20for%20Success/itunes",
-	      "image":"",
-	      "name":"Mental Math Secrets - Your Secret Weapon for Success"
-	   },
 	   r'(?i)(Mentors for Military)':{
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:193038850/sounds.rss",
 	      "image":"",
@@ -3099,16 +3059,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Naked Astronomy"
 	   },
-	   r'(?i)(nat.+park.+serv)':{
-	      "stream":"http://feeds.feedburner.com/npspodcasts",
-	      "image":"",
-	      "name":"National Park Service"
-	   },
-	   r'(?i)(nature|PBS).+(PBS|nature)':{
-	      "stream":"http://feeds.pbs.org/pbs/wnet/nature-video",
-	      "image":"",
-	      "name":"NATURE | PBS"
-	   },
 	   r'(?i)(nat).+(thing)':{
 	      "stream":"http://wrvo.org/podcasts/15101/rss.xml",
 	      "image":"",
@@ -3148,11 +3098,6 @@ def podcast_map():
 	      "stream":"http://www.newyorker.com/feed/podcast/out-loud",
 	      "image":"",
 	      "name":"New Yorker: Out Loud"
-	   },
-	   r'(?i)(new).+(york).+front':{
-	      "stream":"http://www.newyorker.com/feed/podcast/movie-of-the-week",
-	      "image":"",
-	      "name":"New Yorker: The Front Row"
 	   },
 	   r'(?i)(NFL).+(fantasy).+live':{
 	      "stream":"http://nflfantasy.libsyn.com/rss",
@@ -3463,11 +3408,6 @@ def podcast_map():
 	      "stream":"http://feeds.feedburner.com/peainthepodcast",
 	      "image":"",
 	      "name":"Pea In The Podcast"
-	   },
-	   r'(?i)(Pediatrics.+Med.+Stu)':{
-	      "stream":"http://pedscases.libsyn.com/rss",
-	      "image":"",
-	      "name":"Pedscases.com: Pediatrics for Medical Students"
 	   },
 	   r'(?i)(Perm(.|)cult).+voice':{
 	      "stream":"http://feeds.feedburner.com/PermacultureVoicesPodcast",
@@ -4024,11 +3964,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Sermon of the Day"
 	   },
-	   r'(?i)sesame street':{
-	      "stream":"http://downloads.cdn.sesame.org/podcast/rss/rss.xml",
-	      "image":"",
-	      "name":"Sesame Street Podcast"
-	   },
 	   r'(?i)Seth.+Startup.+School':{
 	      "stream":"http://rss.earwolf.com/startup-school",
 	      "image":"",
@@ -4053,11 +3988,6 @@ def podcast_map():
 	      "stream":"http://sherlock.libsyn.com/rss",
 	      "image":"",
 	      "name":"Sherlock Holmes Adventures"
-	   },
-	   r'(?i)shrink rap radio':{
-	      "stream":"http://feeds.feedburner.com/ShrinkRapRadio-APsychologyTalkAndInterviewShow",
-	      "image":"",
-	      "name":"Shrink Rap Radio Psychology Interviews: Exploring brain, body, mind, spirit, intuition, leadership, research, psychotherapy and"
 	   },
 	   r'(?i)side.+hustle.+pro':{
 	      "stream":"http://sidehustlepro.libsyn.com/rss",
@@ -4113,11 +4043,6 @@ def podcast_map():
 	      "stream":"http://feeds.feedburner.com/SlateMomAndDadAreFighting",
 	      "image":"",
 	      "name":"Slate's Mom and Dad Are Fighting"
-	   },
-	   r'(?i)sleep with me':{
-	      "stream":"http://sleepwithmepodcast.libsyn.com/rss",
-	      "image":"",
-	      "name":"Sleep With Me | Helps You Fall Asleep Via Silly Boring Bedtime Stories"
 	   },
 	   r'(?i)sleep with silk':{
 	      "stream":"http://feeds.feedburner.com/silknature",
@@ -4448,11 +4373,6 @@ def podcast_map():
 	      "stream":"https://talkpython.fm/episodes/rss",
 	      "image":"",
 	      "name":"Talk Python To Me - Python conversations for passionate developers"
-	   },
-	   r'(?i)Talk.+to.+me.+korean':{
-	      "stream":"http://talktomeinkorean.libsyn.com/rss",
-	      "image":"",
-	      "name":"Talk To Me In Korean"
 	   },
 	   r'(?i)Talk.+Simpson':{
 	      "stream":"http://feeds.feedburner.com/LaserTimeTalkingSimpsons",
@@ -6040,11 +5960,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Chairborne Commandos"
 	   },
-	   r'(?i)View(.|)point.+homeland':{
-	      "stream":"https://www.chds.us/?viewpoint&rss",
-	      "image":"",
-	      "name":"Viewpoints in Homeland Defense and Security"
-	   },
 	   r'(?i)Wanted.+(FBI|F.b.i)':{
 	      "stream":"https://www.fbi.gov/feeds/wanted-by-the-fbi-podcast/itunes.xml",
 	      "image":"",
@@ -6234,11 +6149,6 @@ def podcast_map():
 	      "stream":"http://feeds.feedburner.com/potterpod",
 	      "image":"",
 	      "name":"Yer A Wizard Harry: The Harry Potter Bookclub"
-	   },
-	   r'(?i)YOGAmazing|YOGA amazing':{
-	      "stream":"http://feeds.feedburner.com/yogamazing",
-	      "image":"",
-	      "name":"YOGAmazing"
 	   },
 	   r'(?i)you.+Not So Smart':{
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:16745745/sounds.rss",
