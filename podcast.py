@@ -12,7 +12,8 @@ def recent_podcast_stream(stream_url, guest=None):
 
     #'http://feeds.feedburner.com/DougLovesMovies'
 	try:
-		reddit_file = urllib2.urlopen(stream_url)
+		req = urllib2.Request(stream_url, headers={'User-Agent' : "Magic Browser"}) 
+		reddit_file = urllib2.urlopen(req)
 		reddit_data = reddit_file.read()
 		reddit_file.close()
 		# entire feed
