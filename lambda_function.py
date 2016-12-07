@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "0.1.5"
+version = "0.1.10"
 print("Podcast Network Version " + version + " - Beta")
 
 import json
@@ -26,8 +26,8 @@ def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
     """
-    print("event.session.application.applicationId=" +
-          event['session']['application']['applicationId'])
+    #print("event.session.application.applicationId=" +
+          #event['session']['application']['applicationId'])
 
     """
     Uncomment this if statement and populate with your skill's application ID to

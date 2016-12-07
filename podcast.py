@@ -7,8 +7,9 @@ from xml.etree import ElementTree as etree
 from podcast_map import *
 import traceback
 import alexa as a
+import uuid
 # --------------- Podcast Response -------------
-def recent_podcast_stream(stream_url, guest=None):
+def recent_podcast_stream(stream_url, guest=None,allfeed=None):
 
     #'http://feeds.feedburner.com/DougLovesMovies'
 	try:
@@ -24,6 +25,8 @@ def recent_podcast_stream(stream_url, guest=None):
 
 		if guest is not None:
 			return return_guest_object(item, guest)
+		elif allfeed is not None:
+			return return_all_object(item)
 		else:
 			return return_recent_object(item)
 	except urllib2.HTTPError:
@@ -71,6 +74,23 @@ def return_guest_object(item, guest):
 
 	return {"url": url, "description": desc,"title" : title}
 
+def return_all_object(item):
+	t = []
+	for entry in item:
+		desc = ""
+		url = ""
+		title = ""
+		try:
+			url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
+			if entry.find('description') is not None:
+				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
+
+			title = entry.find('title').text.strip()
+			t.append({"url": url, "description": desc, "title" : title})
+		except AttributeError:
+			continue
+
+	return t
 def return_recent_object(item):
 	url = ""
 	desc = ""
@@ -85,7 +105,9 @@ def return_recent_object(item):
 
 		try:
 		    url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
-		    desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
+		    if entry.find('description') is not None:
+		    	desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
+
 		    title = entry.find('title').text.strip()
 		    if re.search(r'(?i)mp3',url):
 		    	break
@@ -94,6 +116,7 @@ def return_recent_object(item):
 		    else:
 		    	continue
 		except AttributeError:
+			traceback.print_exc()
 			continue
 		# 	break
 		# except AttributeError:
@@ -111,7 +134,7 @@ def build_response(url, card):
                     "playBehavior": "REPLACE_ALL",
                     "audioItem": {
                         "stream": {
-                            "token": "12345",
+                            "token": str(uuid.uuid4()),
                             "url": url,
                             "offsetInMilliseconds": 0
                         }
@@ -132,9 +155,12 @@ def no_podcast_guest(podcast,guest):
 
 def intent_recent_podcast(intent_request, session):
 	text = intent_request['slots']['podcast']['value'].lower()
-	try:
+
+	if 'value' in intent_request['slots']:
 		guest = intent_request['slots']['guest']['value']
-	except KeyError:
+	elif 'value' in intent_request['slots']['keyword']:
+		guest = intent_request['slots']['keyword']['value']
+	else:
 		guest = None
 
 	podcast = find_podcast_regex(text)
