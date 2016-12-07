@@ -373,11 +373,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Jocko Podcast"
 	   },
-	   r'(?i)(joe).+(osteen|austin)':{
-	      "stream":"https://www.joelosteen.com/Views/RSS/Feed?t=PodcastAudio&ct=CustomList&cst=Podcasts",
-	      "image":"",
-	      "name":"Joel Osteen Podcast"
-	   },
 	   r'(?i)(keep).+(it).+(1600|(six)(.|)(teen).+(hun))':{
 	      "stream":"http://feeds.feedburner.com/KeepinIt1600",
 	      "image":"",
@@ -514,11 +509,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"...These Are Their Stories: The Law & Order Podcast"
 	   },
-	   r'(?i)(daily).+(audio).+(bible)':{
-	      "stream":"http://feeds.feedburner.com/dailyaudiobible",
-	      "image":"",
-	      "name":"Daily Audio Bible"
-	   },
 	   r'(?i)(10|ten).+(perc).+(happ)|(dan).+(harris)':{
 	      "stream":"http://feeds.feedburner.com/abcradio/10percenthappier",
 	      "image":"",
@@ -533,11 +523,6 @@ def podcast_map():
 	      "stream":"http://2docstalk.libsyn.com/rss",
 	      "image":"",
 	      "name":"2 Docs Talk"
-	   },
-	   r'(?i)(cali).+(drive).+(hand)':{
-	      "stream":"https://dmv.ca.gov/web/audio_hdbk/dmv_podcast.xml",
-	      "image":"",
-	      "name":"2016 California Driver Audio Handbook"
 	   },
 	   r'(?i)(3|three)(.+|)(low|lau).+(house|haus)':{
 	      "stream":"http://dj3lau.podbean.com/feed/",
@@ -608,11 +593,6 @@ def podcast_map():
 	      "stream":"https://feeds.publicradio.org/public_feeds/a-prairie-home-companion-highlights/itunes/rss",
 	      "image":"",
 	      "name":"A Prairie Home Companion Highlights"
-	   },
-	   r'(?i)(state).+(of).+(trance)':{
-	      "stream":"http://podcast.armadamusic.com/asot/podcast.xml",
-	      "image":"",
-	      "name":"A State of Trance Official Podcast"
 	   },
 	   r'(?i)(storm).+(of).+(spoil)':{
 	      "stream":"http://feeds.feedburner.com/AStormOfSpoilers",
@@ -753,11 +733,6 @@ def podcast_map():
 	      "stream":"http://acu.libsyn.com/rss",
 	      "image":"",
 	      "name":"American Conservative University Podcast"
-	   },
-	   r'(?i)(americ).+(eng).+(pron)':{
-	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:211495990/sounds.rss",
-	      "image":"",
-	      "name":"American English Pronunciation Podcast"
 	   },
 	   r'(?i)(andy).+(stan).+(lead)':{
 	      "stream":"http://feeds.feedburner.com/AndyStanleyLeadershipPodcast",
@@ -928,11 +903,6 @@ def podcast_map():
 	      "stream":"http://barbellshrugged.libsyn.com/rss",
 	      "image":"",
 	      "name":"Barbell Shrugged - Talking Training w/ CrossFit Games Athletes, Strength Coaches & More"
-	   },
-	   r'(?i)(bare)(.|)(foot).+(book)':{
-	      "stream":"http://feeds.feedburner.com/BarefootBooksPodcastipod",
-	      "image":"",
-	      "name":"Barefoot Books Podcast (iPod)"
 	   },
 	   r'(?i)(bar)(.|)(stool).+(run)':{
 	      "stream":"http://feeds.feedburner.com/BarstoolRundown",
@@ -1339,11 +1309,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Coaching for Leaders"
 	   },
-	   r'(?i)(Coast.+Coast)':{
-	      "stream":"http://www.glennhughes.com/ctc/podcast/podcast.xml",
-	      "image":"",
-	      "name":"Coast To Coast Podcast"
-	   },
 	   r'(?i)(Code)(.|)break':{
 	      "stream":"http://feeds.feedburner.com/CodebreakerByMarketplaceAndTechInsider",
 	      "image":"",
@@ -1654,11 +1619,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Dr. Wayne W. Dyer Podcast"
 	   },
-	   r'(?i)(Dragon.+talk)':{
-	      "stream":"http://www.wizards.com/dnd/rsspodcast.xml",
-	      "image":"",
-	      "name":"Dragon Talk - An Official Dungeons & Dragons Podcast"
-	   },
 	   r'(?i)(dragon(.|)(baller|bowler))':{
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:182624645/sounds.rss",
 	      "image":"",
@@ -1849,11 +1809,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Exponent"
 	   },
-	   r'(?i)(face(.|)book).+your.+busin':{
-	      "stream":"http://facebookyoursmallbusiness.podomatic.com/rss2.xml",
-	      "image":"",
-	      "name":"Facebook Your Small Business' Podcast"
-	   },
 	   r'(?i)(fan(.|)bro).+show':{
 	      "stream":"http://feeds.podtrac.com/vZEXwaruRy29",
 	      "image":"",
@@ -2013,11 +1968,6 @@ def podcast_map():
 	      "stream":"http://feeds.ign.com/ignfeeds/podcasts/gamescoop/",
 	      "image":"",
 	      "name":"Game Scoop!"
-	   },
-	   r'(?i)(Electric.+for.+life)|Gareth.Emery':{
-	      "stream":"http://www.galexmusic.com/podcast/gareth.xml",
-	      "image":"",
-	      "name":"Gareth Emery: Electric For Life"
 	   },
 	   r'(?i)(Gastro(.|)pod)':{
 	      "stream":"https://gastropod.com/feed/",
@@ -2199,11 +2149,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Happy Sad Confused"
 	   },
-	   r'(?i)Hard(well)':{
-	      "stream":"http://podcast.djhardwell.com/podcast.xml",
-	      "image":"",
-	      "name":"Hardwell On Air Official Podcast"
-	   },
 	   r'(?i)(harmon)':{
 	      "stream":"http://feeds.feedburner.com/HarmontownPodcast",
 	      "image":"",
@@ -2348,11 +2293,6 @@ def podcast_map():
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510303",
 	      "image":"",
 	      "name":"How To Do Everything"
-	   },
-	   r'(?i)(How.+To.+start)':{
-	      "stream":"https://awesound.com/@ycombinator/feed/how-to-start-a-startup",
-	      "image":"",
-	      "name":"How to Start a Startup"
 	   },
 	   r'(?i)(hunt.+Talk.+radio|Randy Newberg.+filtered)':{
 	      "stream":"http://hunttalk.libsyn.com/rss",
@@ -2554,11 +2494,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Jim Cornette Experience"
 	   },
-	   r'(?i)(Jim.+Harold.+Camp)':{
-	      "stream":"http://jimharold.com/?feed=jimharoldscampfire",
-	      "image":"",
-	      "name":"Jim Harold's Campfire - True Ghost Stories | Jim Harold"
-	   },
 	   r'(?i)(Jim.+norton.+sam.+rob)':{
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:258167968/sounds.rss",
 	      "image":"",
@@ -2573,11 +2508,6 @@ def podcast_map():
 	      "stream":"http://feeds.soundcloud.com/users/soundcloud:users:125332894/sounds.rss",
 	      "image":"",
 	      "name":"Jimquisition"
-	   },
-	   r'(?i)(Joe Budden)':{
-	      "stream":"http://itstreaming.apple.com/podcasts/musician/joe_budden/ww/j_budden.xml",
-	      "image":"",
-	      "name":"Joe Budden: Meet the Musician"
 	   },
 	   r'(?i)(John Piper Sermons)':{
 	      "stream":"http://feed.desiringgod.org/messages.rss",
@@ -2944,11 +2874,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Mindful Living Spiritual Awakening"
 	   },
-	   r'(?i)(Minute(.|)Physics)':{
-	      "stream":"http://minutephysics.libsyn.com/rss",
-	      "image":"",
-	      "name":"MinutePhysics"
-	   },
 	   r'(?i)(Mischief.+Managed)':{
 	      "stream":"http://devonhyland.ca/mm/rss_feed.xml",
 	      "image":"",
@@ -3109,16 +3034,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"NFL: The Dave Dameshek Football Program"
 	   },
-	   r'(?i)(Nice.+Hair)':{
-	      "stream":"http://thechainsmokers.libsyn.com/rss",
-	      "image":"",
-	      "name":"Nice Hair with The Chainsmokers"
-	   },
-	   r'(?i)(night.+owl)':{
-	      "stream":"http://nightowl.podtree.com/feed/podcast/",
-	      "image":"",
-	      "name":"Night Owl Radio"
-	   },
 	   r'(?i)(nintendo.+voice)':{
 	      "stream":"http://feeds.ign.com/ignfeeds/podcasts/wii/",
 	      "image":"",
@@ -3158,11 +3073,6 @@ def podcast_map():
 	      "stream":"http://norm.videopodcastnetwork.libsynpro.com/rss",
 	      "image":"",
 	      "name":"Norm Macdonald Live"
-	   },
-	   r'(?i)((Norml|normal).+event)':{
-	      "stream":"http://norml.org/rss/normlevents_podcast.xml",
-	      "image":"",
-	      "name":"NORML Events - PodCast"
 	   },
 	   r'(?i)((Norml|normal).+weekly)':{
 	      "stream":"http://norml.org/rss/normlnews_podcast.xml",
@@ -3359,11 +3269,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"PaleOMG Uncensored"
 	   },
-	   r'(?i)(para.+)(Jim Harold)':{
-	      "stream":"http://jimharold.com/?feed=podcast",
-	      "image":"",
-	      "name":"PARANORMAL PODCAST | Jim Harold"
-	   },
 	   r'(?i)(parent(.|)cast)':{
 	      "stream":"http://feeds.feedburner.com/parentcast",
 	      "image":"",
@@ -3463,11 +3368,6 @@ def podcast_map():
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510056",
 	      "image":"",
 	      "name":"Piano Jazz Shorts"
-	   },
-	   r'(?i)(pint).+(with)':{
-	      "stream":"http://pintswithaquinas.libsyn.com/rss",
-	      "image":"",
-	      "name":"Pints With Aquinas"
 	   },
 	   r'(?i)(planet.+radio)':{
 	      "stream":"http://www.planetary.org/multimedia/podcasts/planetary-radio-podcast-rss.xml",
@@ -3578,11 +3478,6 @@ def podcast_map():
 	      "stream":"http://feeds.feedburner.com/ProgrammingThrowdown",
 	      "image":"",
 	      "name":"Programming Throwdown"
-	   },
-	   r'(?i)(Proto.+radio)':{
-	      "stream":"http://podcasts.protocol-radio.com/PRRADIO.xml",
-	      "image":"",
-	      "name":"Protocol Radio"
 	   },
 	   r'(?i)(PS.I.love)':{
 	      "stream":"http://feeds.podtrac.com/nOTae4fRptyc",
@@ -4259,11 +4154,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"Story and Star Wars"
 	   },
-	   r'(?i)Stor.+pirate':{
-	      "stream":"http://storypirates.libsyn.com/rss",
-	      "image":"",
-	      "name":"Story Pirates Podcast"
-	   },
 	   r'(?i)Story(.|)Cor':{
 	      "stream":"http://www.npr.org/rss/podcast.php?id=510200",
 	      "image":"",
@@ -4894,11 +4784,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"The Enormocast: a climbing podcast"
 	   },
-	   r'(?i)(Ensemb)(.+|)list':{
-	      "stream":"http://theensemblist.podbean.com/feed/",
-	      "image":"",
-	      "name":"The Ensemblist"
-	   },
 	   r'(?i)(Ent).+leadership':{
 	      "stream":"http://entreleadershippodcast.ramsey.libsynpro.com/rss",
 	      "image":"",
@@ -5019,11 +4904,6 @@ def podcast_map():
 	      "image":"",
 	      "name":"The Happy Hour with Jamie Ivey"
 	   },
-	   r'(?i)(Health.+Mom)':{
-	      "stream":"https://my.wellnessmama.com/podcast/feed/",
-	      "image":"",
-	      "name":"The Healthy Moms Podcast"
-	   },
 	   r'(?i)(The Heart)':{
 	      "stream":"http://feeds.theheartradio.org/TheHeartRadio",
 	      "image":"",
@@ -5093,11 +4973,6 @@ def podcast_map():
 	      "stream":"http://altucher.stansberry.libsynpro.com/rss",
 	      "image":"",
 	      "name":"The James Altucher Show"
-	   },
-	   r'(?i)(Jealous.+Curator)':{
-	      "stream":"http://thejealouscurator.libsyn.com/rss",
-	      "image":"",
-	      "name":"The Jealous Curator : ART FOR YOUR EAR"
 	   },
 	   r'(?i)(jill.+Mich)':{
 	      "stream":"http://rss.art19.com/jillian-michaels",
@@ -5188,11 +5063,6 @@ def podcast_map():
 	      "stream":"http://www.onlyyouforever.com/feed/podcast/",
 	      "image":"",
 	      "name":"The Marriage Podcast for Smart People | from OnlyYouForever | Because Marriage Should Be Forever"
-	   },
-	   r'(?i)(Martin Gar)':{
-	      "stream":"https://districtpodcast.s3.amazonaws.com/feed.xml",
-	      "image":"",
-	      "name":"The Martin Garrix Show"
 	   },
 	   r'(?i)(Math Dude)':{
 	      "stream":"http://www.quickanddirtytips.com/xml/mathdude.xml",
