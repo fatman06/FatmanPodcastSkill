@@ -16,8 +16,8 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'card': {
             'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
+            'title': title,
+            'content': output.replace(" . . ."," ")
         },
         'reprompt': {
             'outputSpeech': {
@@ -43,7 +43,7 @@ def build_response_with_card(speech,title,description,ctype,image=''):
 	response = basic_response(speech)
 	response["response"].update(build_card(title,description,ctype,image))
 	return response
-	
+
 def alexa_build_response(session_attributes, speechlet_response):
     return {
         'version': '1.0',
@@ -65,14 +65,14 @@ def get_welcome_response():
     """
 
     session_attributes = {}
-    card_title = "Welcome"
-    speech_output = "Welcome to the Alexa Skills Kit sample. " \
-                    "Please tell me your favorite color by saying, " \
-                    "my favorite color is red"
+    card_title = "Welcome to Pod Buddy"
+    speech_output = "Welcome to Pod Buddy " \
+                    "You can ask me to play your favorite podcast . . ." \
+                    " For Example Say . . . Play the Disney Story Central Podcast"
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite color by saying, " \
-                    "my favorite color is red."
+    reprompt_text = "Please say a podcast you would like to list to . . ." \
+                    " "
     should_end_session = False
     return alexa_build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))

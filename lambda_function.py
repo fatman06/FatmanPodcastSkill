@@ -1,6 +1,6 @@
 from __future__ import print_function
-version = "0.2.8"
-print("Podcast Network Version " + version + " - Beta")
+version = "0.3.1"
+print("Podcast Network Version " + version + " - Releaase")
 
 import json
 import urllib2
@@ -35,9 +35,9 @@ def lambda_handler(event, context):
     function.
     """
     #url = recent_podcast_stream(event['request'], event['session'])
-    # if (event['session']['application']['applicationId'] !=
-    #         "amzn1.ask.skill.7d942caa-da0f-45e5-81c8-08479081e33a"):
-    #     raise ValueError("Invalid Application ID")
+    if (event['session']['application']['applicationId'] !=
+            "amzn1.ask.skill.7d942caa-da0f-45e5-81c8-08479081e33a"):
+        raise ValueError("Invalid Application ID")
 
 
     if event['request']['type'] == "LaunchRequest":
