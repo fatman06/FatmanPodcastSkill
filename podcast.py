@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+# encoding: utf-8
 import json
 import urllib2
 import re
@@ -50,14 +51,16 @@ def return_guest_object(item, guest):
 	    # print(entry.find('description').text)
 	    #print(re.match(r'(?i)geoff tate', entry.find('description').text.strip()))
 		t = entry.find('description').text.strip().lower()
+		g = re.sub(re.compile("[',.!$&]"),"(.|)",guest).encode("utf8").replace(" ",".+")
+		title = entry.find('title').text.strip()
 		desc = ""
 		url = ""
-		title = ""
+		print(g)
 		try:
-			if re.search(r'(?i)' + guest.lower(), t):
+			if re.search(r'(?i)' + g, t) or re.search(r'(?i)' + g, title):
 				print("Found Guest: " + guest)
 				url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
-				print(entry.find('description').text.strip())
+				
 				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 				title = entry.find('title').text.strip()
 				duration = int(entry.find('enclosure').attrib['length'])
