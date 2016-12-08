@@ -194,7 +194,7 @@ def intent_recent_podcast(intent_request, session):
 			if 'value' in intent_request['slots']['number'] and 'value' in intent_request['slots']['timeframe']:
 				offset = get_offset_miliseconds(intent_request['slots']['number']["value"],intent_request['slots']['timeframe']["value"])
 				if offset > pod["duration"] and pod["duration"] > 0:
-					offeset = 0
+					offset = 0
 				response = build_response(pod["url"],card,offset)
 			else:
 				response = build_response(pod["url"],card)
