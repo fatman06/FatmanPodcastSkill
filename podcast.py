@@ -171,12 +171,14 @@ def get_offset_miliseconds(number,timeframe):
 	return (num * n)
 
 def intent_recent_podcast(intent_request, session):
+
+	slots = intent_request['slots']
 	text = intent_request['slots']['podcast']['value'].lower()
 
-	if 'value' in intent_request['slots']['guest']:
-		guest = intent_request['slots']['guest']['value']
-	elif 'value' in intent_request['slots']['keyword']:
-		guest = intent_request['slots']['keyword']['value']
+	if 'value' in slots['guest']:
+		guest = slots['guest']['value']
+	elif 'value' in slots['keyword']:
+		guest = slots['keyword']['value']
 	else:
 		guest = None
 
@@ -191,8 +193,8 @@ def intent_recent_podcast(intent_request, session):
 			return no_podcast_guest(podcast["name"],guest)
 		else:
 			card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
-			if 'value' in intent_request['slots']['number'] and 'value' in intent_request['slots']['timeframe']:
-				offset = get_offset_miliseconds(intent_request['slots']['number']["value"],intent_request['slots']['timeframe']["value"])
+			if 'value' in slots['number'] and 'value' in slots['timeframe']:
+				offset = get_offset_miliseconds(slots['number']["value"],slots['timeframe']["value"])
 				if offset > pod["duration"] and pod["duration"] > 0:
 					offset = 0
 				response = build_response(pod["url"],card,offset)

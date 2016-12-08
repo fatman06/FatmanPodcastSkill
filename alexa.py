@@ -38,6 +38,12 @@ def basic_response(text):
 			'shouldEndSession':True
 		}
 	}
+
+def build_response_with_card(speech,title,description,ctype,image=''):
+	response = basic_response(speech)
+	response["response"].update(build_card(title,description,ctype,image))
+	return response
+	
 def alexa_build_response(session_attributes, speechlet_response):
     return {
         'version': '1.0',
@@ -120,6 +126,8 @@ def on_intent(intent_request, session):
         return handle_session_end_request()
     elif intent_name == "RecentPodcast":
     	return intent_recent_podcast(intent, session)
+    elif intent_name == "ListRecentPodcast":
+    	return intent_list_recent_podcast(intent,session)
     else:
         raise ValueError("Invalid intent")
 
