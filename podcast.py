@@ -44,6 +44,7 @@ def return_guest_object(item, guest):
 	url = ""
 	desc = ""
 	title = ""
+	duration = 0
 	for entry in item:
 	    # get description, url, and thumbnail
 	    # print(entry.find('description').text)
@@ -59,6 +60,7 @@ def return_guest_object(item, guest):
 				print(entry.find('description').text.strip())
 				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 				title = entry.find('title').text.strip()
+				duration = int(entry.find('enclosure').attrib['length'])
 				if re.search(r'(?i)mp3',url):
 					break
 				elif re.search(r'(?i)(mp4|m4v)',url):
@@ -72,7 +74,7 @@ def return_guest_object(item, guest):
 		except AttributeError:
 			continue
 
-	return {"url": url, "description": desc,"title" : title}
+	return {"url": url, "description": desc,"title" : title, "duration":duration}
 
 def return_all_object(item):
 	t = []
@@ -95,6 +97,7 @@ def return_recent_object(item):
 	url = ""
 	desc = ""
 	title = ""
+	duration = 0
 	for entry in item:
 	    # get description, url, and thumbnail
 	    # print(entry.find('description').text)
@@ -105,6 +108,7 @@ def return_recent_object(item):
 
 		try:
 		    url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
+		    duration = int(entry.find('enclosure').attrib['length'])
 		    if entry.find('description') is not None:
 		    	desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 
@@ -122,7 +126,7 @@ def return_recent_object(item):
 		# except AttributeError:
 		# 	continue
 
-	return {"url": url, "description": desc, "title" : title}
+	return {"url": url, "description": desc, "title" : title,"duration":duration}
 
 
 def build_response(url, card, offset=0):
@@ -189,6 +193,8 @@ def intent_recent_podcast(intent_request, session):
 			card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
 			if 'value' in intent_request['slots']['number'] and 'value' in intent_request['slots']['timeframe']:
 				offset = get_offset_miliseconds(intent_request['slots']['number']["value"],intent_request['slots']['timeframe']["value"])
+				if offset > pod["duration"] and pod["duration"] > 0:
+					offeset = 0
 				response = build_response(pod["url"],card,offset)
 			else:
 				response = build_response(pod["url"],card)
