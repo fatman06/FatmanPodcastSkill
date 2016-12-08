@@ -9,7 +9,7 @@ import traceback
 import alexa as a
 import uuid
 # --------------- Podcast Response -------------
-def recent_podcast_stream(stream_url, guest=None,allfeed=None):
+def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10):
 
     #'http://feeds.feedburner.com/DougLovesMovies'
 	try:
@@ -76,19 +76,24 @@ def return_guest_object(item, guest):
 
 	return {"url": url, "description": desc,"title" : title, "duration":duration}
 
-def return_all_object(item):
+def return_all_object(item,stop=10):
+	i = 1
 	t = []
 	for entry in item:
 		desc = ""
 		url = ""
 		title = ""
 		try:
+			if i > stop:
+				break
 			url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
 			if entry.find('description') is not None:
 				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 
 			title = entry.find('title').text.strip()
 			t.append({"url": url, "description": desc, "title" : title})
+			i = i+1
+
 		except AttributeError:
 			continue
 
@@ -173,7 +178,7 @@ def get_offset_miliseconds(number,timeframe):
 def intent_recent_podcast(intent_request, session):
 
 	slots = intent_request['slots']
-	text = intent_request['slots']['podcast']['value'].lower()
+	text = slots['podcast']['value'].lower()
 
 	if 'value' in slots['guest']:
 		guest = slots['guest']['value']
@@ -205,6 +210,22 @@ def intent_recent_podcast(intent_request, session):
 		response = no_podcast_response(text)
 		return response
 
+def intent_list_recent_podcast(intent_request,session):
+	slots = intent_request['slots']
+	text = intent_request['slots']['podcast']['value'].lower()
+	podcast = find_podcast_regex(text)
+	if podcast is not None:
+		feed = podcast["stream"]
+		pod = recent_podcast_stream(feed,None,True,10)
+		speech = "Look at the Alexa App to see a list of recent episodes of " + podcast["name"]
+		title = "Recent Episodes of: " + podcast["name"]
+		response = a.build_response_with_card(speech,title,streamToList(pod),"Standard","")
+		return response
+	else:
+		response = no_podcast_response(text)
+		return response 
+
+
 # ----------- HELPERS ----------------
 def cleanhtml(raw_html):
 	cleanr = re.compile('<.*?>')
@@ -214,4 +235,9 @@ def cleanCDATA(text):
 	cleanr = re.compile('<!\[CDATA\[.*?\]\]>')
 	cleantext = re.sub(cleanr,'',text)
 	return cleantext
+def streamToList(lists):
+	t = []
+	for l in lists:
+		t.append(l["title"])
+	return "-" + ("\n-").join(t)
 
