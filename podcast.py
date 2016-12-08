@@ -125,7 +125,7 @@ def return_recent_object(item):
 	return {"url": url, "description": desc, "title" : title}
 
 
-def build_response(url, card):
+def build_response(url, card, offset=0):
     return {
         "response": {
             "directives": [
@@ -136,7 +136,7 @@ def build_response(url, card):
                         "stream": {
                             "token": str(uuid.uuid4()),
                             "url": url,
-                            "offsetInMilliseconds": 0
+                            "offsetInMilliseconds": offset
                         }
                     }
                 }
@@ -153,10 +153,23 @@ def no_podcast_response(podcast):
 def no_podcast_guest(podcast,guest):
 	return a.basic_response("Was Unabled To Locate an episode of " + podcast + " featuring " + guest)
 
+def get_offset_miliseconds(number,timeframe):
+	num = int(number)
+	if re.search(r'(?i)min',timeframe):
+		n = 1000*60
+	elif re.search(r'(?i)sec',timeframe):
+		n = 1000
+	elif re.search(r'(?i)hour',timeframe):
+		n = 1000*60*60
+	else: 
+		n = 1000*60
+
+	return (num * n)
+
 def intent_recent_podcast(intent_request, session):
 	text = intent_request['slots']['podcast']['value'].lower()
 
-	if 'value' in intent_request['slots']:
+	if 'value' in intent_request['slots']['guest']:
 		guest = intent_request['slots']['guest']['value']
 	elif 'value' in intent_request['slots']['keyword']:
 		guest = intent_request['slots']['keyword']['value']
@@ -174,7 +187,11 @@ def intent_recent_podcast(intent_request, session):
 			return no_podcast_guest(podcast["name"],guest)
 		else:
 			card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
-			response = build_response(pod["url"],card)
+			if 'value' in intent_request['slots']['number'] and 'value' in intent_request['slots']['timeframe']:
+				offset = get_offset_miliseconds(intent_request['slots']['number']["value"],intent_request['slots']['timeframe']["value"])
+				response = build_response(pod["url"],card,offset)
+			else:
+				response = build_response(pod["url"],card)
 			return response
 	else: 
 		response = no_podcast_response(text)
