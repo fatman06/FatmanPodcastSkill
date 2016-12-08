@@ -55,12 +55,10 @@ def return_guest_object(item, guest):
 		title = entry.find('title').text.strip()
 		desc = ""
 		url = ""
-		print(g)
 		try:
 			if re.search(r'(?i)' + g, t) or re.search(r'(?i)' + g, title):
 				print("Found Guest: " + guest)
 				url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
-				
 				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 				title = entry.find('title').text.strip()
 				duration = int(entry.find('enclosure').attrib['length'])
@@ -91,7 +89,7 @@ def return_all_object(item,stop=10):
 				break
 			url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
 			if entry.find('description') is not None:
-				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
+				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip().encode("utf8")))
 
 			title = entry.find('title').text.strip()
 			t.append({"url": url, "description": desc, "title" : title})
@@ -231,7 +229,7 @@ def intent_list_recent_podcast(intent_request,session):
 
 # ----------- HELPERS ----------------
 def cleanhtml(raw_html):
-	cleanr = re.compile('<.*?>')
+	cleanr = re.compile('<.*?>|&.*?;')
 	cleantext = re.sub(cleanr, '', raw_html)
 	return cleantext
 def cleanCDATA(text):

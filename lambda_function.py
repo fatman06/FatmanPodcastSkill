@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "0.2.7"
+version = "0.2.8"
 print("Podcast Network Version " + version + " - Beta")
 
 import json
