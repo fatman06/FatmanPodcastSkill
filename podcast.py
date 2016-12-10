@@ -156,7 +156,7 @@ def return_recent_object(item):
 
 
 def build_response(url, card, offset=0):
-    return {
+    response =  {
         "response": {
             "directives": [
                 {
@@ -164,18 +164,20 @@ def build_response(url, card, offset=0):
                     "playBehavior": "REPLACE_ALL",
                     "audioItem": {
                         "stream": {
-                            "token": str(uuid.uuid4()),
+                            "token": url,
                             "url": url,
                             "offsetInMilliseconds": offset
                         }
                     }
                 }
             ],
-            "shouldEndSession": True,
-            "card" : card["card"]
+            "shouldEndSession": True
         }
        
     }
+    if card is not None:
+    	response["card"] = card["card"]
+    return response
 
 def no_podcast_response(podcast):
 	return a.basic_response("Was Unabled to Locate A Podcast by the name: " + podcast)
