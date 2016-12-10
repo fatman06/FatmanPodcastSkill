@@ -55,7 +55,7 @@ def basic_response_reprompt(text,reprompt,session_end=False):
 			'shouldEndSession':session_end
 		}
 	}
-	
+
 def build_response_with_card(speech,title,description,ctype,image=''):
 	response = basic_response(speech)
 	response["response"].update(build_card(title,description,ctype,image))
@@ -81,7 +81,7 @@ def get_welcome_response():
     add those here
     """
 
-    session_attributes = {}
+    session_attributes = {"prevIntent":"help"}
     card_title = "Welcome to Pod Buddy"
     speech_output = "Welcome to Pod Buddy " \
                     "You can ask me to play your favorite podcast . . ." \

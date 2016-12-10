@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "0.3.8"
+version = "0.3.14"
 print("Podcast Network Version " + version + " - Releaase")
 
 import json
@@ -14,13 +14,23 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 def my_logging_handler(event, context):
-    logger.info('got event{}'.format(event))
+    print(event)
+    #logger.info('got event{}'.format(event))
     return True
 
 def getVersion():
 	return version
 
 # --------------- Main handler ------------------
+def handle_request_event(event,context):
+	if event['request']['type'] == "LaunchRequest":
+	    return on_launch(event['request'], event['session'])
+	elif event['request']['type'] == "IntentRequest":
+	    return on_intent(event['request'], event['session'])
+	elif event['request']['type'] == "SessionEndedRequest":
+	    return on_session_ended(event['request'], event['session'])
+	else:
+		print("Unknown Intent Option")
 
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -34,17 +44,28 @@ def lambda_handler(event, context):
     prevent someone else from configuring a skill that sends requests to this
     function.
     """
+    #my_logging_handler(event,context)
+
     #url = recent_podcast_stream(event['request'], event['session'])
     if (event['session']['application']['applicationId'] !=
             "amzn1.ask.skill.7d942caa-da0f-45e5-81c8-08479081e33a"):
         raise ValueError("Invalid Application ID")
 
+    if event['session']["new"]:
+    	return handle_request_event(event,context)
+    else:
+    	try:
+			#print("Not New: {}".format(event['session']["attributes"]))
+			if event['session']["attributes"]["prevIntent"] == "help":
+			   return handle_request_event(event,context)
+			elif event['session']['attributes']['prevIntent'] == "ListRecentPodcast":
+				event["request"]["intent"]["name"] = "ListRecentPodcast"
+				return handle_request_event(event,context)
+			else:
+				return handle_request_event(event,context)
 
-    if event['request']['type'] == "LaunchRequest":
-        return on_launch(event['request'], event['session'])
-    elif event['request']['type'] == "IntentRequest":
-        return on_intent(event['request'], event['session'])
-    elif event['request']['type'] == "SessionEndedRequest":
-        return on_session_ended(event['request'], event['session'])
+        except KeyError:
+			return on_session_ended(event['request'], event['session'])
+
     
     #return build_response(pod["url"],card)

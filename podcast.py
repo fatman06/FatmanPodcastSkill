@@ -203,7 +203,9 @@ def intent_recent_podcast(intent_request, session):
 	if 'value' in slots["podcast"]:
 		text = slots['podcast']['value'].lower()
 	else:
-		return a.basic_response_reprompt("I was unable to hear a Podcast. Which podcast would you like to listen to? ","Which Podcast would you like to listen to?",False)
+		response = a.basic_response_reprompt("I was unable to hear a Podcast name. Which podcast would you like to listen to? ","Which Podcast would you like to listen to?",False)
+		response["sessionAttributes"] = {"prevIntent" : "RecentPodcast"}
+		return response
 
 	if 'value' in slots['guest']:
 		guest = slots['guest']['value']
@@ -240,7 +242,9 @@ def intent_list_recent_podcast(intent_request,session):
 	if 'value' in slots['podcast']:
 		text = intent_request['slots']['podcast']['value'].lower()
 	else:
-		return a.basic_response_reprompt("I was unable to hear a Podcast. What podcast would you like me to list? ","What podcast would you like me to list?",False)
+		response = a.basic_response_reprompt("I was unable to hear a Podcast name. What podcast would you like me to list? ","What podcast would you like me to list?",False)
+		response["sessionAttributes"] = {"prevIntent" : "ListRecentPodcast"}
+		return response
 
 	podcast = find_podcast_regex(text)
 	if podcast is not None:
