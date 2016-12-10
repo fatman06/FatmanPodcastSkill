@@ -199,7 +199,11 @@ def get_offset_miliseconds(number,timeframe):
 def intent_recent_podcast(intent_request, session):
 
 	slots = intent_request['slots']
-	text = slots['podcast']['value'].lower()
+
+	if 'value' in slots["podcast"]:
+		text = slots['podcast']['value'].lower()
+	else:
+		return a.basic_response_reprompt("I was unable to hear a Podcast. Which podcast would you like to listen to? ","Which Podcast would you like to listen to?",False)
 
 	if 'value' in slots['guest']:
 		guest = slots['guest']['value']
@@ -233,7 +237,11 @@ def intent_recent_podcast(intent_request, session):
 
 def intent_list_recent_podcast(intent_request,session):
 	slots = intent_request['slots']
-	text = intent_request['slots']['podcast']['value'].lower()
+	if 'value' in slots['podcast']:
+		text = intent_request['slots']['podcast']['value'].lower()
+	else:
+		return a.basic_response_reprompt("I was unable to hear a Podcast. What podcast would you like me to list? ","What podcast would you like me to list?",False)
+
 	podcast = find_podcast_regex(text)
 	if podcast is not None:
 		feed = podcast["stream"]

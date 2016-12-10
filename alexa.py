@@ -39,6 +39,23 @@ def basic_response(text):
 		}
 	}
 
+def basic_response_reprompt(text,reprompt,session_end=False):
+	return  {
+		'response' : {
+			'outputSpeech' : {
+				'type' : 'PlainText',
+				'text' : text
+			},
+			'reprompt': {
+            'outputSpeech': {
+                'type': 'PlainText',
+                'text': reprompt
+	            }
+	        },
+			'shouldEndSession':session_end
+		}
+	}
+	
 def build_response_with_card(speech,title,description,ctype,image=''):
 	response = basic_response(speech)
 	response["response"].update(build_card(title,description,ctype,image))
@@ -71,7 +88,7 @@ def get_welcome_response():
                     " For Example Say . . . Play the Disney Story Central Podcast"
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please say a podcast you would like to list to . . ." \
+    reprompt_text = "Please say a podcast you would like to listen to . . ." \
                     " "
     should_end_session = False
     return alexa_build_response(session_attributes, build_speechlet_response(
