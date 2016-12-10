@@ -2,7 +2,8 @@ import re
 
 def podcast_map():
 
-	podcast_map = {r'(?i)(1947)|(nine)(.|)(teen)(.|)(forty)(.|)(seven)|(meet).+(the).+(press)':{"stream":"http://meetthepress1947.nbcnews.libsynpro.com/rss","image":"","name":"1947"},
+	podcast_map = {
+	r'(?i)(1947)|(nine)(.|)(teen)(.|)(forty)(.|)(seven)|(meet).+(the).+(press)':{"stream":"http://meetthepress1947.nbcnews.libsynpro.com/rss","image":"","name":"1947"},
 r'(?i)(these).+(their|there).+(stor)|(law).+(order)':{"stream":"https://rss.art19.com/these-are-their-stories-the-law-and-order-podcast","image":"","name":"...These Are Their Stories"},
 r'(?i)(10|ten).+(perc).+(happ)|(dan).+(harris)':{"stream":"http://feeds.feedburner.com/abcradio/10percenthappier","image":"","name":"10 Percent Happier with Dan Harris"},
 r'(?i)(2|two).+(doc).+(talk)':{"stream":"http://2docstalk.libsyn.com/rss","image":"","name":"2 Docs Talk"},
@@ -278,7 +279,6 @@ r'(?i)(English.+Second.+Lang)':{"stream":"http://feeds.feedburner.com/EnglishAsA
 r'(?i)(Enjoying.+Life)':{"stream":"http://simplerhappierlifepodcast.libsyn.com/rss","image":"","name":"Enjoying Life On A Budget Podcast"},
 r'(?i)(Enough.+About.+Me)|Kirk Minihane':{"stream":"http://feeds.feedburner.com/enoughaboutmepodcast","image":"","name":"Enough About Me with Kirk Minihane"},
 r'(?i)(Entrepr.+Fire)':{"stream":"http://entrepreneuronfire.libsyn.com/rss","image":"","name":"Entrepreneur on FIRE"},
-r'(?i)(Entrepr.+Thought.+Lead)':{"stream":"http://web.stanford.edu/group/edcorner/uploads/podcast/EducatorsCorner.xml","image":"","name":"Entrepreneurial Thought Leaders"},
 r'(?i)(Epic.+real.+est.+invest)':{"stream":"http://eprei.libsyn.com/rss","image":"","name":"Epic Real Estate Investing"},
 r'(?i)eric.+kathy':{"stream":"http://www.podcastone.com/podcast?categoryID2=873","image":"","name":"Eric and Kathy"},
 r'(?i)even.+money|ross tucker':{"stream":"http://www.podcastone.com/podcast?categoryID2=660","image":"","name":"Even Money with Ross Tucker"},
@@ -744,7 +744,6 @@ r'(?i)self.+suff.+life':{"stream":"http://www.theselfsufficientlife.com/feed/pod
 r'(?i)serendipity':{"stream":"http://feeds.feedburner.com/libsyn/vbTa","image":"","name":"Serendipity"},
 r'(?i)serial|cereal':{"stream":"http://feeds.serialpodcast.org/serialpodcast","image":"","name":"Serial"},
 r'(?i)sermon of the day':{"stream":"http://feed.desiringgod.org/sermon-of-the-day.rss","image":"","name":"Sermon of the Day"},
-r'(?i)Seth.+Startup.+School':{"stream":"http://rss.earwolf.com/startup-school","image":"","name":"Seth Godin's Startup School"},
 r'(?i)Sex.+Get.+Real':{"stream":"http://sexgetsreal.libsyn.com/rss","image":"","name":"Sex Gets Real"},
 r'(?i)Sex.+nerd':{"stream":"http://rss.art19.com/sex-nerd-sandra.xml","image":"","name":"Sex Nerd Sandra"},
 r'(?i)Sex.+emily':{"stream":"http://emilymorse.libsyn.com/rss","image":"","name":"Sex With Emily"},
@@ -1064,7 +1063,6 @@ r'(?i)(Rich Roll)':{"stream":"http://www.richroll.com/feed/podcast/","image":"",
 r'(?i)(Ringer.+(MLB|M.l.b))':{"stream":"http://feeds.feedburner.com/ringermlbshow","image":"","name":"The Ringer MLB Show"},
 r'(?i)(Ringer.+(NBA|n.b.a))':{"stream":"http://feeds.feedburner.com/RingerNBAShow","image":"","name":"The Ringer NBA Show"},
 r'(?i)(Ringer.+(NFL|n.f.l))':{"stream":"http://feeds.feedburner.com/ringernflshow","image":"","name":"The Ringer NFL Show"},
-r'(?i)(Risk.+taker)':{"stream":"http://feeds.soundcloud.com/users/soundcloud:users:254359729/sounds.rss","image":"","name":"The Risk Takers"},
 r'(?i)(Road.+Back.+You)':{"stream":"http://Theroadbacktoyou.podbean.com/feed/","image":"","name":"The Road Back to You"},
 r'(?i)(Rob(.|)Cast)':{"stream":"http://robbell.podbean.com/feed/","image":"","name":"The RobCast"},
 r'(?i)(Rob.+(Sharma|charm))':{"stream":"http://robinsharma.libsyn.com/rss","image":"","name":"The Robin Sharma Mastery Sessions"},
@@ -1235,7 +1233,6 @@ r'(?i)(Yer|you(.|)re) A Wizard Harry':{"stream":"http://feeds.feedburner.com/pot
 r'(?i)you.+Not So Smart':{"stream":"http://feeds.soundcloud.com/users/soundcloud:users:16745745/sounds.rss","image":"","name":"You Are Not So Smart"},
 r'(?i)you.+get.+rose':{"stream":"http://www.podcastone.com/podcast?categoryID2=943","image":"","name":"You Get A Rose"},
 r'(?i)you.+know.+what.+dude|rob.+kel':{"stream":"http://robertkelly.libsyn.com/rss","image":"","name":"You Know What Dude with Robert Kelly"},
-r'(?i)Made It Weird|pete (holmes|homes)':{"stream":"http://feeds.feedburner.com/YouMadeItWeird","image":"","name":"You Made It Weird with Pete Holmes"},
 r'(?i)You Must Remember This':{"stream":"http://feeds.feedburner.com/MustRememberThis","image":"","name":"You Must Remember This"},
 r'(?i)You Need.+Budget':{"stream":"http://youneedabudget.libsyn.com/rss","image":"","name":"You Need A Budget YNAB"},
 r'(?i)Chael Sonnen|you(.are|.re).+welcome':{"stream":"http://feeds.feedburner.com/YoureWelcomeWithChaelSonnen","image":"","name":"You're Welcome! With Chael Sonnen"},
@@ -1246,8 +1243,7 @@ r'(?i)Your Mom.+House':{"stream":"http://feeds.feedburner.com/YourMomsHouseWithC
 r'(?i)Your Move|Andy Stanley':{"stream":"http://feeds.feedburner.com/npm","image":"","name":"Your Move with Andy Stanley Podcast"},
 r'(?i)Your parent.+mojo':{"stream":"http://yourparentingmojo.com/feed/podcast","image":"","name":"Your Parenting Mojo - Respectful, research-based parenting ideas to help kids thrive"},
 r'(?i)Week.+Radio.+Address.+President.+elect':{"stream":"http://otrans.3cdn.net/6bfaeaf9e7cab15b8c_z6omv24jz.xml","image":"","name":"Your Weekly Radio Address from the President-elect"},
-r'(?i)Zen Parenting':{"stream":"http://feeds.feedburner.com/ZenParentingRadio","image":"","name":"Zen Parenting Radio"},
-r'(?i)Zero Blog':{"stream":"http://feeds.feedburner.com/ZeroBlogThirty","image":"","name":"Zero Blog Thirty"}
+r'(?i)Zen Parenting':{"stream":"http://feeds.feedburner.com/ZenParentingRadio","image":"","name":"Zen Parenting Radio"}
 }
 	return podcast_map
 
