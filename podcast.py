@@ -73,6 +73,8 @@ def return_guest_object(item, guest):
 					duration = int(entry.find('enclosure').attrib['length'])
 				except KeyError:
 					duration = 0
+				except ValueError:
+					duration = 0
 
 				if re.search(r'(?i)mp3',url):
 					break
@@ -130,7 +132,9 @@ def return_recent_object(item):
 		    	duration = int(entry.find('enclosure').attrib['length'])
 		    except KeyError:
 		    	duration = 0
-		    	
+		    except ValueError:
+		    	duration = 0
+
 		    if entry.find('description') is not None:
 		    	desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 
