@@ -46,22 +46,34 @@ def return_guest_object(item, guest):
 	desc = ""
 	title = ""
 	duration = 0
+	g = re.sub(re.compile("[',.!$&]"),"(.|)",guest).encode("utf8").replace(" ",".+")
 	for entry in item:
 	    # get description, url, and thumbnail
 	    # print(entry.find('description').text)
 	    #print(re.match(r'(?i)geoff tate', entry.find('description').text.strip()))
-		t = entry.find('description').text.strip().lower()
-		g = re.sub(re.compile("[',.!$&]"),"(.|)",guest).encode("utf8").replace(" ",".+")
+		#print(entry.find('description').text)
+		if (entry.find('description').text is not None):
+			t = entry.find('description').text
+		else:
+			t = "zzzzzzzzzzz"
+			print(t)
+
+		#print(entry.find('description').text is None)
+		#print (t)
 		title = entry.find('title').text.strip()
 		desc = ""
 		url = ""
 		try:
-			if re.search(r'(?i)' + g, t) or re.search(r'(?i)' + g, title):
+			if  re.search(r'(?i)' + g, t) or re.search(r'(?i)' + g, title):
 				print("Found Guest: " + guest)
 				url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
 				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 				title = entry.find('title').text.strip()
-				duration = int(entry.find('enclosure').attrib['length'])
+				try:
+					duration = int(entry.find('enclosure').attrib['length'])
+				except KeyError:
+					duration = 0
+
 				if re.search(r'(?i)mp3',url):
 					break
 				elif re.search(r'(?i)(mp4|m4v)',url):
@@ -114,7 +126,11 @@ def return_recent_object(item):
 
 		try:
 		    url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
-		    duration = int(entry.find('enclosure').attrib['length'])
+		    try:
+		    	duration = int(entry.find('enclosure').attrib['length'])
+		    except KeyError:
+		    	duration = 0
+		    	
 		    if entry.find('description') is not None:
 		    	desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
 
@@ -126,7 +142,7 @@ def return_recent_object(item):
 		    else:
 		    	continue
 		except AttributeError:
-			traceback.print_exc()
+			#traceback.print_exc()
 			continue
 		# 	break
 		# except AttributeError:
