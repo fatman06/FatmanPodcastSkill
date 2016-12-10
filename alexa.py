@@ -9,15 +9,10 @@ from podcast import *
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
-    return {
+    response = {
         'outputSpeech': {
             'type': 'PlainText',
             'text': output
-        },
-        'card': {
-            'type': 'Simple',
-            'title': title,
-            'content': output.replace(" . . ."," ")
         },
         'reprompt': {
             'outputSpeech': {
@@ -27,6 +22,13 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'shouldEndSession': should_end_session
     } 
+    if title is not None:
+    	response["card"] = {
+            'type': 'Simple',
+            'title': title,
+            'content': output.replace(" . . ."," ")
+        }
+    return response
 
 def basic_response(text):
 	return {
@@ -81,7 +83,7 @@ def get_welcome_response():
     add those here
     """
 
-    session_attributes = {"prevIntent":"help"}
+    session_attributes = {"prevIntent":"Launch"}
     card_title = "Welcome to Pod Buddy"
     speech_output = "Welcome to Pod Buddy " \
                     "You can ask me to play your favorite podcast . . ." \
@@ -92,7 +94,22 @@ def get_welcome_response():
                     " "
     should_end_session = False
     return alexa_build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        None, speech_output, reprompt_text, should_end_session))
+
+def get_help_response():
+
+    session_attributes = {"prevIntent":"AMAZON.HelpIntent"}
+    card_title = "Welcome to Pod Buddy"
+    speech_output = "" \
+                    "You can ask me to play your favorite podcast " \
+                    "by saying play and the name of the podcast . . . For Example you can say . . . Play the Disney Story Central Podcast . . . What Podcast would you like to listen to?"
+    # If the user either does not reply to the welcome message or says something
+    # that is not understood, they will be prompted again with this text.
+    reprompt_text = "Please say a podcast you would like to listen to . . ." \
+                    " "
+    should_end_session = False
+    return alexa_build_response(session_attributes, build_speechlet_response(
+        None, speech_output, reprompt_text, should_end_session))
 
 
 def handle_session_end_request():
@@ -138,7 +155,7 @@ def on_intent(intent_request, session):
 
     # Dispatch to your skill's intent handlers
     if intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
+        return get_help_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent" or intent_name == "AMAZON.PauseIntent":
         return handle_session_end_request()
     elif intent_name == "AMAZON.ResumeIntent":

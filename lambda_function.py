@@ -1,6 +1,6 @@
 from __future__ import print_function
-version = "0.3.27"
-print("Podcast Network Version " + version + " - Releaase")
+version = "0.3.33"
+print("Pod Buddy Version " + version + " - Releaase")
 
 import json
 import urllib2
@@ -31,7 +31,6 @@ def handle_request_event(event,context):
 	    return on_session_ended(event['request'], event['session'])
 	else:
 		print("Unknown Intent Option")
-		print(event)
 		return on_session_ended(event['request'], context)
 
 def lambda_handler(event, context):
@@ -52,7 +51,6 @@ def lambda_handler(event, context):
     # if (event['session']['application']['applicationId'] !=
     #         "amzn1.ask.skill.7d942caa-da0f-45e5-81c8-08479081e33a"):
     #     raise ValueError("Invalid Application ID")
-    print(event)
     try:
 	    if event['session']["new"]:
 	    	return handle_request_event(event,context)

@@ -52,11 +52,11 @@ def return_guest_object(item, guest):
 	    # print(entry.find('description').text)
 	    #print(re.match(r'(?i)geoff tate', entry.find('description').text.strip()))
 		#print(entry.find('description').text)
-		if (entry.find('description').text is not None):
+		if (entry.find('description') is not None):
 			t = entry.find('description').text
 		else:
-			t = "zzzzzzzzzzz"
-			print(t)
+			t = " "
+			#print(t)
 
 		#print(entry.find('description').text is None)
 		#print (t)
@@ -67,7 +67,7 @@ def return_guest_object(item, guest):
 			if  re.search(r'(?i)' + g, t) or re.search(r'(?i)' + g, title):
 				print("Found Guest: " + guest)
 				url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
-				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
+				desc = cleanhtml(cleanCDATA(t))
 				title = entry.find('title').text.strip()
 				try:
 					duration = int(entry.find('enclosure').attrib['length'])
@@ -176,7 +176,8 @@ def build_response(url, card, offset=0):
        
     }
     if card is not None:
-    	response["card"] = card["card"]
+    	response["response"]["card"] = card["card"]
+
     return response
 
 def no_podcast_response(podcast):
