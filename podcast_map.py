@@ -397,7 +397,7 @@ r'(?i)(keep).+(it).+(1600|(six)(.|)(teen).+(hun))':{"stream":"http://feeds.feedb
 r'(?i)(Keto Talk)|(Jimmy Moore.+doc)':{"stream":"http://ketotalk.libsyn.com/rss","image":"","name":"Keto Talk With Jimmy Moore and The Doc"},
 r'(?i)(Kevin Pollak)':{"stream":"http://feeds.feedburner.com/KevinPollaksChatShow-Audio","image":"","name":"Kevin Pollak's Chat Show"},
 r'(?i)(Kid.+Music Planet)':{"stream":"http://feeds.feedburner.com/kidsmusicplanetpodcast","image":"","name":"Kids Music Planet Podcast"},
-r'(?i)(Killing.+the.+Town)':{"stream":"http://www.podcastone.com/podcast?categoryID2=970","image":"","name":"Killing the Town with Storm and Cyrus"},
+r'(?i)((Killing|killeen).+the.+Town)|(lance|land) storm|cyrus':{"stream":"http://www.podcastone.com/podcast?categoryID2=970","image":"","name":"Killing the Town with Storm and Cyrus"},
 r'(?i)(Kind(a|\sof) funny)':{"stream":"http://feeds.podtrac.com/DBhVerLhyNUM","image":"","name":"Kinda Funny Gamescast"},
 r'(?i)(King Falls)':{"stream":"https://audioboom.com/channels/4256036.rss","image":"","name":"King Falls AM"},
 r'(?i)(Kiss.+Me.+Quick)':{"stream":"http://kisstherose.libsyn.com/rss","image":"","name":"Kiss Me Quick's Erotica"},

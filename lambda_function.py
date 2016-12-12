@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "0.3.33"
+version = "0.3.36"
 print("Pod Buddy Version " + version + " - Releaase")
 
 import json
@@ -48,9 +48,12 @@ def lambda_handler(event, context):
     #my_logging_handler(event,context)
 
     #url = recent_podcast_stream(event['request'], event['session'])
-    # if (event['session']['application']['applicationId'] !=
-    #         "amzn1.ask.skill.7d942caa-da0f-45e5-81c8-08479081e33a"):
-    #     raise ValueError("Invalid Application ID")
+    try:
+	    if (event['session']['application']['applicationId'] !=
+	            "amzn1.ask.skill.7d942caa-da0f-45e5-81c8-08479081e33a"):
+	        raise ValueError("Invalid Application ID")
+    except KeyError: 
+        x = 1
     try:
 	    if event['session']["new"]:
 	    	return handle_request_event(event,context)
