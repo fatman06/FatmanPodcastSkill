@@ -10,7 +10,7 @@ import traceback
 import alexa as a
 import uuid
 # --------------- Podcast Response -------------
-def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10):
+def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False):
 
     #'http://feeds.feedburner.com/DougLovesMovies'
 	try:
@@ -25,11 +25,11 @@ def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10):
 		reddit_feed=[]
 
 		if guest is not None:
-			return return_guest_object(item, guest)
+			return return_guest_object(item, guest,redirect)
 		elif allfeed is not None:
 			return return_all_object(item)
 		else:
-			return return_recent_object(item)
+			return return_recent_object(item,redirect)
 	except urllib2.HTTPError:
 		print("Stream Is Bad: " + stream_url)
 		#traceback.print_exc()
@@ -40,9 +40,10 @@ def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10):
 	except etree.ParseError:
 		None
 
-def return_guest_object(item, guest):
+def return_guest_object(item, guest,redirect=False):
 
 	url = ""
+	orig_url = ""
 	desc = ""
 	title = ""
 	duration = 0
@@ -66,7 +67,8 @@ def return_guest_object(item, guest):
 		try:
 			if  re.search(r'(?i)' + g, t) or re.search(r'(?i)' + g, title):
 				print("Found Guest: " + guest)
-				url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
+				orig_url = entry.find('enclosure').attrib['url']
+				url = orig_url.replace('http:', 'https:')
 				desc = cleanhtml(cleanCDATA(t))
 				title = entry.find('title').text.strip()
 				try:
@@ -88,6 +90,9 @@ def return_guest_object(item, guest):
 				continue     
 		except AttributeError:
 			continue
+	if redirect and orig_url != "":
+		response = urllib2.urlopen(orig_url)
+		url = response.geturl().replace("http:","https:")
 
 	return {"url": url, "description": desc,"title" : title, "duration":duration}
 
@@ -113,8 +118,9 @@ def return_all_object(item,stop=10):
 			continue
 
 	return t
-def return_recent_object(item):
+def return_recent_object(item,redirect=False):
 	url = ""
+	orig_url = ""
 	desc = ""
 	title = ""
 	duration = 0
@@ -127,7 +133,8 @@ def return_recent_object(item):
 		title = ""
 
 		try:
-		    url = entry.find('enclosure').attrib['url'].replace('http:', 'https:')
+		    orig_url = entry.find('enclosure').attrib['url']
+		    url = orig_url.replace('http:', 'https:')
 		    try:
 		    	duration = int(entry.find('enclosure').attrib['length'])
 		    except KeyError:
@@ -151,7 +158,9 @@ def return_recent_object(item):
 		# 	break
 		# except AttributeError:
 		# 	continue
-
+	if redirect and orig_url != "":
+		response = urllib2.urlopen(orig_url)
+		url = response.geturl().replace("http:","https:")
 	return {"url": url, "description": desc, "title" : title,"duration":duration}
 
 
@@ -220,7 +229,12 @@ def intent_recent_podcast(intent_request, session):
 	podcast = find_podcast_regex(text)
 	if podcast is not None:
 		feed = podcast["stream"]
-		pod = recent_podcast_stream(feed,guest)
+		if 'redirect' in podcast:
+			redirect = True
+		else:
+			redirect = False
+
+		pod = recent_podcast_stream(feed,guest,None,10,redirect)
 		pod["image"] = podcast["image"]
 		pod["podcast"] = podcast["name"]
 
