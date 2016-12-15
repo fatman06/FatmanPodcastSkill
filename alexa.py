@@ -8,7 +8,7 @@ from podcast import *
 
 # --------------- Helpers that build all of the responses ----------------------
 
-def build_speechlet_response(title, output, reprompt_text, should_end_session):
+def build_speechlet_response(title, output, reprompt_text, should_end_session,cardtext=None):
     response = {
         'outputSpeech': {
             'type': 'PlainText',
@@ -22,11 +22,11 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'shouldEndSession': should_end_session
     } 
-    if title is not None:
+    if title is not None and cardtext is not None:
     	response["card"] = {
             'type': 'Simple',
             'title': title,
-            'content': output.replace(" . . ."," ")
+            'content': cardtext
         }
     return response
 
@@ -88,13 +88,14 @@ def get_welcome_response():
     speech_output = "Welcome to Pod Buddy " \
                     "You can ask me to play your favorite podcast . . ." \
                     " For Example Say . . . Play the Disney Story Central Podcast . . . What Podcast would you like to listen to?"
+    cardtext = "For more Help and list of additional features visit: \nhttp://fatmandev.net/pod-buddy/help"
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "Please say a podcast you would like to listen to . . ." \
                     " "
     should_end_session = False
     return alexa_build_response(session_attributes, build_speechlet_response(
-        None, speech_output, reprompt_text, should_end_session))
+        "Welcome To Pod Buddy", speech_output, reprompt_text, should_end_session,cardtext))
 
 def get_help_response():
 
@@ -107,9 +108,10 @@ def get_help_response():
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "Please say a podcast you would like to listen to . . ." \
                     " "
+    cardtext = "For more Help and list of additional features visit: \nhttp://fatmandev.net/pod-buddy/help"
     should_end_session = False
     return alexa_build_response(session_attributes, build_speechlet_response(
-        None, speech_output, reprompt_text, should_end_session))
+        "Pod Buddy Help", speech_output, reprompt_text, should_end_session,cardtext))
 
 
 def handle_session_end_request():
@@ -172,6 +174,7 @@ def on_intent(intent_request, session):
     elif intent_name == "ListRecentPodcast":
     	return intent_list_recent_podcast(intent,session)
     else:
+        print("Invalid Intent: " + intent_name)
         raise ValueError("Invalid intent")
 
 
