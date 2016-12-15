@@ -236,7 +236,7 @@ r'(?i)(Election.+College)':{"stream":"http://electioncollege.libsyn.com/rss","im
 r'(?i)(Eleven.+life)':{"stream":"http://eleventylife.libsyn.com/rss","image":"","name":"Eleventy Life"},
 r'(?i)(ELLISTRONICS)':{"stream":"http://feeds.soundcloud.com/users/soundcloud:users:255132557/sounds.rss","image":"","name":"ELLISTRONICS"},
 r'(?i)(Em.+basic)':{"stream":"http://embasic.libsyn.com/rss","image":"","name":"EM Basic"},
-r'(?i)embed.+':{"stream":"https://www.npr.org/rss/podcast.php?id=510311","image":"","name":"Embedded"},
+r'(?i)embed.+|imbedded|in bed':{"stream":"https://www.npr.org/rss/podcast.php?id=510311","image":"","name":"Embedded"},
 r'(?i)(Em.+crit)':{"stream":"http://emcrit.org/feed/podcast/","image":"","name":"EMCrit Podcast - Critical Care and Resuscitation"},
 r'(?i)(Em.+med.+case)':{"stream":"https://emergencymedicinecases.com/feed/podcast/","image":"","name":"Emergency Medicine Cases"},
 r'(?i)(Em.+Infect.+dis)':{"stream":"https://www2c.cdc.gov/podcasts/createrss.asp?t=a&c=49","image":"","name":"Emerging Infectious Diseases"},
