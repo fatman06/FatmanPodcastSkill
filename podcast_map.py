@@ -394,7 +394,7 @@ r'(?i)(James.+bond)':{"stream":"http://feeds.feedburner.com/JamesBonding","image
 r'(?i)(James.+MacDonald)|(walk in the word)':{"stream":"http://feeds.feedburner.com/walkintheword/wxZf","image":"","name":"James MacDonald"},
 r'(?i)jason.+deb':{"stream":"http://jasonanddeb.emmis.libsynpro.com/rss","image":"","name":"Jason and Deb The Morning X"},
 r'(?i)(java(.|)script).+jab':{"stream":"https://feeds.feedwrench.com/JavaScriptJabber.rss","image":"","name":"JavaScript Jabber"},
-r'(?i)(jay.+silent.+bob).+old':{"stream":"http://feeds.feedburner.com/JaySilentBobGetOld","image":"","name":"Jay and Silent Bob Get Old"},
+r'(?i)(j.+silent.+bob|silent.+bob).+old':{"stream":"http://feeds.feedburner.com/JaySilentBobGetOld","image":"","name":"Jay and Silent Bob Get Old"},
 r'(?i)(jenna.+julien)':{"stream":"http://feeds.soundcloud.com/users/soundcloud:users:109532020/sounds.rss","image":"","name":"Jenna and Julien Podcast"},
 r'(?i)(jesus.+call)':{"stream":"http://jesuscalling.libsyn.com/jclibpodcast","image":"","name":"Jesus Calling Podcast"},
 r'(?i)(jim.+beaver)|(project.action)':{"stream":"http://www.podcastone.com/podcast?categoryID2=950","image":"","name":"Jim Beaver's Project Action"},
