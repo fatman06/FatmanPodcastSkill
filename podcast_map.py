@@ -1179,10 +1179,10 @@ r'(?i)Zen Parenting':{"stream":"http://feeds.feedburner.com/ZenParentingRadio","
 def find_podcast_regex(text):
 	response = None
 	podcast = podcast_map()
-	for k,v in podcast.items():
+	for k in podcast.keys():
 		try:
 			if re.search(re.compile(k),text):
-				return  v
+				return  podcast[k]
 				break
 		except:
 			print(k)
