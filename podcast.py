@@ -9,6 +9,7 @@ from podcast_map import *
 import traceback
 import alexa as a
 import uuid
+import time
 # --------------- Podcast Response -------------
 def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False):
 
@@ -18,6 +19,7 @@ def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=F
 		reddit_file = urllib2.urlopen(req)
 		reddit_data = reddit_file.read()
 		reddit_file.close()
+
 		# entire feed
 		reddit_root = etree.fromstring(reddit_data)
 		item = reddit_root.findall('channel/item')
@@ -80,9 +82,6 @@ def return_guest_object(item, guest,redirect=False):
 
 				if re.search(r'(?i)mp3',url):
 					break
-				elif re.search(r'(?i)(mp4|m4v)',url):
-					#print("this has a video in it")
-					continue
 				else:
 					#print("Stream Does Not Have Mp3")
 					continue
@@ -148,8 +147,6 @@ def return_recent_object(item,redirect=False):
 		    title = entry.find('title').text.strip()
 		    if re.search(r'(?i)mp3',url):
 		    	break
-		    elif re.search(r'(?i)(mp4|m4v|m4a)',url):
-		    	continue
 		    else:
 		    	continue
 		except AttributeError:
