@@ -415,6 +415,8 @@ r'(?i)(Joyce Meyer)':{"stream":"http://feeds.feedburner.com/joycemeyer/SFiE","im
 r'(?i)(John Hodgman)':{"stream":"http://feeds.feedburner.com/todayinthepast","image":"","name":"Judge John Hodgman"},
 r'(?i)(Juicy Scoop)|heather.+M(c|ac)Donald':{"stream":"http://rss.art19.com/juicy-scoop","image":"","name":"Juicy Scoop with Heather McDonald"},
 r'(?i)(jw|j.w.|jehovah).+awake|^awake$':{"stream":"https://apps.jw.org/E_RSSMEDIAMAG?rln=E&rmn=g&rfm=mp3","image":"","name":"JW: Awake!"},
+r'(?i)(jw|j.w.|jehovah).+(watch(.|)tower).+public|(watch(.|)tower).+public|^watch(.|)tower$':{"stream":"https://apps.jw.org/E_RSSMEDIAMAG?rln=E&rmn=wp&rfm=mp3","image":"","name":"JW: Watchtower (Public)"},
+r'(?i)(jw|j.w.|jehovah).+(watch(.|)tower).+study|(watch(.|)tower).+study':{"stream":"https://apps.jw.org/E_RSSMEDIAMAG?rln=E&rmn=w&rfm=mp3","image":"","name":"JW: Watchtower (Study)"},
 r'(?i)keep.+it.+(100|one hundred)':{"stream":"http://www.podcastone.com/podcast?categoryID2=932","image":"","name":"Keepin it 100 with Konnan"},
 r'(?i)(keep).+(it).+(1600|(six)(.|)(teen).+(hun))':{"stream":"http://feeds.feedburner.com/KeepinIt1600","image":"","name":"Keepin' it 1600"},
 r'(?i)(Keto Talk)|(Jimmy Moore.+doc)':{"stream":"http://ketotalk.libsyn.com/rss","image":"","name":"Keto Talk With Jimmy Moore and The Doc"},
