@@ -187,10 +187,10 @@ def build_response(url, card, offset=0):
     return response
 
 def no_podcast_response(podcast):
-	return a.basic_response("Was Unabled to Locate A Podcast by the name: " + podcast)
+	return a.basic_response("Was Unable to Locate A Podcast by the name: " + podcast)
 
 def no_podcast_guest(podcast,guest):
-	return a.basic_response("Was Unabled To Locate an episode of " + podcast + " featuring " + guest)
+	return a.basic_response("Was Unable To Locate an episode of " + podcast + " featuring " + guest)
 
 def get_offset_miliseconds(number,timeframe):
 	num = int(number)
@@ -234,7 +234,6 @@ def intent_recent_podcast(intent_request, session):
 		pod = recent_podcast_stream(feed,guest,None,10,redirect)
 		pod["image"] = podcast["image"]
 		pod["podcast"] = podcast["name"]
-
 		if guest is not None and pod["url"] == "":
 			return no_podcast_guest(podcast["name"],guest)
 		else:
