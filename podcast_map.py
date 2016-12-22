@@ -1285,7 +1285,11 @@ r'(?i)High Vibration':{"stream":"http://greensmoothiegirl.com/feed/podcast/","im
 r'(?i)Your Mom.+House':{"stream":"http://feeds.feedburner.com/YourMomsHouseWithChristinaPazsitzkyAndTomSegura","image":"","name":"Your Mom's House with Christina Pazsitzky and Tom Segura"},
 r'(?i)Your Move|Andy Stanley':{"stream":"http://feeds.feedburner.com/npm","image":"","name":"Your Move with Andy Stanley Podcast"},
 r'(?i)Zen Parenting':{"stream":"http://feeds.feedburner.com/ZenParentingRadio","image":"","name":"Zen Parenting Radio"},
-}
+r'(?i)geek.show':{"stream":"http://www.spreaker.com/show/452240/episodes/feed","image":"","name":"Geek Show Podcast"},
+r'(?i)money(.|)wise':{"stream":"http://www.oneplace.com/ministries/moneywise/subscribe/podcast.xml","image":"","name":"MoneyWise from Compass"},
+r'(?i)hey.howard':{"stream":"http://www.oneplace.com/ministries/compass-hey-howard/subscribe/podcast.xml","image":"","name":"Hey Howard from Compass"},
+r'(?i)shop(.|)talk':{"stream":"http://shoptalkshow.com/feed/podcast/","image":"","name":"ShopTalk"}
+	}
 	return podcast_map
 
 def find_podcast_regex(text):
