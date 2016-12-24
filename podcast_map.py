@@ -474,7 +474,7 @@ r'(?i)keep.+it.+(100|one hundred)':{"stream":"http://www.podcastone.com/podcast?
 r'(?i)(keep).+(it).+(1600|(six)(.|)(teen).+(hun))':{"stream":"http://feeds.feedburner.com/KeepinIt1600","image":"","name":"Keepin' it 1600"},
 r'(?i)(Keto Talk)|(Jimmy Moore.+doc)':{"stream":"http://ketotalk.libsyn.com/rss","image":"","name":"Keto Talk With Jimmy Moore and The Doc"},
 r'(?i)(Kevin Pollak)':{"stream":"http://feeds.feedburner.com/KevinPollaksChatShow-Audio","image":"","name":"Kevin Pollak's Chat Show"},
-r'(?i)kick(.|)ass.+news':{"stream":"http://kickasspoliticspreview1.libsyn.com/kickasspolitics2","image":"","name":"Kickass News"},
+r'(?i)kick(.|)ass.+(news|politics)':{"stream":"http://kickasspoliticspreview1.libsyn.com/kickasspolitics2","image":"","name":"Kickass News"},
 r'(?i)(Kid.+Music Planet)':{"stream":"http://feeds.feedburner.com/kidsmusicplanetpodcast","image":"","name":"Kids Music Planet Podcast"},
 r'(?i)((Killing|killeen).+the.+Town)|(lance|land) storm|cyrus':{"stream":"http://www.podcastone.com/podcast?categoryID2=970","image":"","name":"Killing the Town with Storm and Cyrus"},
 r'(?i)(Kind(a|\sof) funny)':{"stream":"http://feeds.podtrac.com/DBhVerLhyNUM","image":"","name":"Kinda Funny Gamescast"},
@@ -1308,7 +1308,8 @@ r'(?i)Your Call':{"stream":"http://kalw.org/podcasts/2094/rss.xml","image":"","n
 r'(?i)High Vibration':{"stream":"http://greensmoothiegirl.com/feed/podcast/","image":"","name":"Your High Vibration Life"},
 r'(?i)Your Mom.+House':{"stream":"http://feeds.feedburner.com/YourMomsHouseWithChristinaPazsitzkyAndTomSegura","image":"","name":"Your Mom's House with Christina Pazsitzky and Tom Segura"},
 r'(?i)Your Move|Andy Stanley':{"stream":"http://feeds.feedburner.com/npm","image":"","name":"Your Move with Andy Stanley Podcast"},
-r'(?i)Zen Parenting':{"stream":"http://feeds.feedburner.com/ZenParentingRadio","image":"","name":"Zen Parenting Radio"}
+r'(?i)Zen Parenting':{"stream":"http://feeds.feedburner.com/ZenParentingRadio","image":"","name":"Zen Parenting Radio"},
+r'(?i)tech(.|)nation':{"stream":"http://technation.podomatic.com/rss2.xml","image":"","name":"TechNation"}
 }
 	return podcast_map
 

@@ -10,6 +10,7 @@ import traceback
 import alexa as a
 import uuid
 import time
+import boto3
 # --------------- Podcast Response -------------
 def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False):
 
@@ -185,8 +186,22 @@ def build_response(url, card, offset=0):
     	response["response"]["card"] = card["card"]
 
     return response
+def update_no_podcast(podcast):
+	client = boto3.resource('dynamodb',region_name='us-east-1')
+	table = client.Table('pb_not_found')
+	table.update_item(
+		Key={
+			'spoken_phrase' : podcast
+		},
+		UpdateExpression="ADD total_count :num",
+		ExpressionAttributeValues = {
+			":num" : 1
+		},
+		ReturnValues="NONE"
+		)
 
 def no_podcast_response(podcast):
+	update_no_podcast(podcast)
 	return a.basic_response("Was Unable to Locate A Podcast by the name: " + podcast)
 
 def no_podcast_guest(podcast,guest):

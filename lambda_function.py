@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "0.4.5"
+version = "0.4.15"
 print("Pod Buddy Version " + version + " - Release")
 
 import json
@@ -9,6 +9,7 @@ from xml.etree import ElementTree as etree
 from alexa import *
 from podcast import *
 from podcast_map import *
+import boto3
 
 import logging
 logger = logging.getLogger()
@@ -29,10 +30,27 @@ def handle_request_event(event,context):
 	    return on_intent(event, event['session'])
 	elif event['request']['type'] == "SessionEndedRequest":
 	    return on_session_ended(event['request'], event['session'])
+	elif event['request']['type'] == "AudioPlayer.PlaybackStarted" or event['request']['type'] == "AudioPlayer.PlaybackStopped":
+		x = 1
+	elif event['request']['type'] == "System.ExceptionEncountered":
+		print("System.ExceptionEncountered: {}".format(event['request']))
 	else:
-		print("Unknown Intent Option")
+		print("Unknown Intent Option: {}".format(event['request']['type']))
 		return on_session_ended(event['request'], context)
 
+def add_customer_ddb(customerID):
+	client = boto3.resource('dynamodb',region_name='us-east-1')
+	table = client.Table('pod_buddy_custid_total')
+	table.update_item(
+			Key={
+				'customer_id' : customerID
+			},
+			UpdateExpression="ADD total_count :num",
+			ExpressionAttributeValues = {
+				":num" : 1
+			},
+			ReturnValues="NONE"
+		)
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
     etc.) The JSON body of the request is provided in the event parameter.
@@ -54,8 +72,14 @@ def lambda_handler(event, context):
 	        raise ValueError("Invalid Application ID")
     except KeyError: 
         x = 1
+
     try:
 	    if event['session']["new"]:
+	    	try:
+	    		add_customer_ddb(event['session']['user']['userId'])
+	    	except:
+	    		print("Did Not Add Customer ID")
+	    		x = 1 
 	    	return handle_request_event(event,context)
 	    else:
 	    	try:
