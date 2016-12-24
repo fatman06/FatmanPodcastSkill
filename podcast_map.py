@@ -1288,7 +1288,7 @@ r'(?i)Zen Parenting':{"stream":"http://feeds.feedburner.com/ZenParentingRadio","
 r'(?i)geek.show':{"stream":"http://www.spreaker.com/show/452240/episodes/feed","image":"","name":"Geek Show Podcast"},
 r'(?i)money(.|)wise':{"stream":"http://www.oneplace.com/ministries/moneywise/subscribe/podcast.xml","image":"","name":"MoneyWise from Compass"},
 r'(?i)hey.howard':{"stream":"http://www.oneplace.com/ministries/compass-hey-howard/subscribe/podcast.xml","image":"","name":"Hey Howard from Compass"},
-r'(?i)shop(.|)talk':{"stream":"http://shoptalkshow.com/feed/podcast/","image":"","name":"ShopTalk"}
+r'(?i)bob.+(chez|chaz).+show|bob.+(chez|chaz)':{"stream":"http://www.bobcesca.com/podcast/bobandelvis.rss","image":"","name":"The Bob and Chez Show"}
 	}
 	return podcast_map
 

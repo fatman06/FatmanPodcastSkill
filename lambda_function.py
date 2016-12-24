@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "0.4.2"
+version = "0.4.3"
 print("Pod Buddy Version " + version + " - Release")
 
 import json
