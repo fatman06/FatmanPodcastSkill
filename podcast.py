@@ -10,6 +10,7 @@ import traceback
 import alexa as a
 import uuid
 import time
+from lambda_function import *
 from datetime import *
 import boto3
 # --------------- Podcast Response -------------
@@ -51,7 +52,7 @@ def return_guest_object(item, guest,redirect=False,podtrac=False):
 	desc = ""
 	title = ""
 	duration = 0
-	g = re.sub(re.compile("[',.!$&]"),"(.|)",guest).encode("utf8").replace(" ",".+")
+	g = re.sub(re.compile("['!$&]"),"(.|)",guest).encode("utf8").replace(" ",".+")
 	for entry in item:
 	    # get description, url, and thumbnail
 	    # print(entry.find('description').text)
@@ -69,7 +70,7 @@ def return_guest_object(item, guest,redirect=False,podtrac=False):
 		desc = ""
 		url = ""
 		try:
-			if  re.search(r'(?i)' + g, t) or re.search(r'(?i)' + g, title):
+			if  re.search(re.compile("(?i){}".format(g)), str(t)) or re.search(re.compile("(?i){}".format(g)), str(title)):
 				print("Found Guest: " + guest)
 				orig_url = entry.find('enclosure').attrib['url']
 				url = orig_url.replace('http:', 'https:')
@@ -88,7 +89,9 @@ def return_guest_object(item, guest,redirect=False,podtrac=False):
 					#print("Stream Does Not Have Mp3")
 					continue
 			else: 
-				continue     
+				continue  
+		except UnicodeEncodeError:
+			continue   
 		except AttributeError:
 			continue
 	if redirect and orig_url != "":
@@ -226,6 +229,9 @@ def no_podcast_response(podcast):
 def no_podcast_guest(podcast,guest):
 	return a.basic_response("Was Unable To Locate an episode of " + podcast + " featuring " + guest)
 
+def no_podcast_number(podcast,epnum):
+	return a.basic_response("Was Unable To Locate episode number " + str(int(epnum)) + " of " + podcast )
+
 def get_offset_miliseconds(number,timeframe):
 	num = int(number)
 	if re.search(r'(?i)min',timeframe):
@@ -242,7 +248,8 @@ def get_offset_miliseconds(number,timeframe):
 def intent_recent_podcast(intent_request, session):
 
 	slots = intent_request['slots']
-
+	number = None
+	ep_num = None
 	if 'value' in slots["podcast"]:
 		text = slots['podcast']['value'].lower()
 	else:
@@ -250,12 +257,22 @@ def intent_recent_podcast(intent_request, session):
 		response["sessionAttributes"] = {"prevIntent" : "RecentPodcast"}
 		return response
 
-	if 'value' in slots['guest']:
-		guest = slots['guest']['value']
-	elif 'value' in slots['keyword']:
-		guest = slots['keyword']['value']
-	else:
-		guest = None
+	try:
+		if 'value' in slots['guest']:
+			guest = slots['guest']['value']
+		elif 'value' in slots['keyword']:
+			guest = slots['keyword']['value']
+		else:
+			guest = None
+
+	except KeyError:
+		if intent_request["name"] == "RecentPodcastEpisode":
+			if 'value' in slots['epnumber']:
+				guest = "(\\s|eps|#|episode|ep|^|E|Hr|-){}(\\s|-|:|,|\\.)".format(slots['epnumber']['value'])
+				number = True
+				ep_num = slots['epnumber']['value']
+			else:
+				guest = None
 
 	podcast = find_podcast_regex(text)
 	if podcast is not None:
@@ -270,7 +287,7 @@ def intent_recent_podcast(intent_request, session):
 			podtrac = False
 
 		try:
-			if session['user']['userId'] !="amzn1.ask.account.TEST":
+			if session['user']['userId'] !="amzn1.ask.account.TEST" and getStage() == "Release":
 				save_podcast_play(podcast["name"])
 		except:
 			r = 1
@@ -278,8 +295,10 @@ def intent_recent_podcast(intent_request, session):
 		pod = recent_podcast_stream(feed,guest,None,10,redirect,podtrac)
 		pod["image"] = podcast["image"]
 		pod["podcast"] = podcast["name"]
-		if guest is not None and pod["url"] == "":
+		if guest is not None and pod["url"] == "" and number is None:
 			return no_podcast_guest(podcast["name"],guest)
+		elif guest is not None and pod["url"] == "" and number is not None:
+			return no_podcast_number(podcast["name"],ep_num)
 		else:
 			card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
 			if 'value' in slots['number'] and 'value' in slots['timeframe']:
@@ -309,14 +328,14 @@ def intent_list_recent_podcast(intent_request,session):
 		pod = recent_podcast_stream(feed,None,True,10)
 		try:
 			speech = "The most recent episode of " + podcast["name"] + " is titled " + pod[0]["title"] + " ...Look at the Alexa App to see a list of recent episodes of " + podcast["name"] + " . . . Would you like to play the most recent episode now? "
-			prompt = True
+			prompt = False
 		except:
 			speech = "Look at the Alexa App to see a list of recent episodes of " + podcast["name"]
-			prompt = False
+			prompt = True
 
 		title = "Recent Episodes of: " + podcast["name"]
 		response = a.build_response_with_card(speech,title,streamToList(pod),"Standard","")
-		response["sessionAttributes"] = {"stream" : pod[0]["url"],"title": pod[0]["title"],"name":podcast["name"] }
+		response["sessionAttributes"] = {"stream" : pod[0]["url"],"title": pod[0]["title"],"name":podcast["name"],"prevIntent":"ListRecentPodcast" }
 		response["response"]["shouldEndSession"] = prompt
 		return response
 	else:
