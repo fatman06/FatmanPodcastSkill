@@ -1,6 +1,6 @@
 from __future__ import print_function
 version = "1.0.0"
-print("Pod Buddy Version " + version + " - Release")
+print("Pod Buddy Version " + version + " - Beta")
 
 import json
 import urllib2
