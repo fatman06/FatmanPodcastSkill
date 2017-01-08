@@ -1,6 +1,7 @@
 from __future__ import print_function
-version = "1.0.0"
-print("Pod Buddy Version " + version + " - Beta")
+version = "1.0.16"
+stage = "Beta"
+print("Pod Buddy Version " + version + " - " + stage)
 
 import json
 import urllib2
@@ -21,6 +22,9 @@ def my_logging_handler(event, context):
 
 def getVersion():
 	return version
+
+def getStage():
+	return stage
 
 # --------------- Main handler ------------------
 def handle_request_event(event,context):
@@ -76,7 +80,7 @@ def lambda_handler(event, context):
     try:
 	    if event['session']["new"]:
 	    	try:
-	    		if event['session']['user']['userId'] !="amzn1.ask.account.TEST":
+	    		if event['session']['user']['userId'] !="amzn1.ask.account.TEST" and getStage() == "Release":
 	    			add_customer_ddb(event['session']['user']['userId'])
 	    	except:
 	    		print("Did Not Add Customer ID")
