@@ -340,22 +340,27 @@ def intent_recent_podcast(intent_request, session):
 			r = 1
 
 		pod = recent_podcast_stream(feed,guest,None,10,redirect,podtrac,shuffle)
-		pod["image"] = podcast["image"]
-		pod["podcast"] = podcast["name"]
-		if guest is not None and pod["url"] == "" and number is None:
-			return no_podcast_guest(podcast["name"],guest)
-		elif guest is not None and pod["url"] == "" and number is not None:
-			return no_podcast_number(podcast["name"],ep_num)
-		else:
-			card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
-			if 'value' in slots['number'] and 'value' in slots['timeframe']:
-				offset = get_offset_miliseconds(slots['number']["value"],slots['timeframe']["value"])
-				if offset > pod["duration"] and pod["duration"] > 0:
-					offset = 0
-				response = build_response(pod["url"],card,offset)
+		if type(pod) == dict:
+			print("Hi")
+			pod["image"] = podcast["image"]
+			pod["podcast"] = podcast["name"]
+			if guest is not None and pod["url"] == "" and number is None:
+				return no_podcast_guest(podcast["name"],guest)
+			elif guest is not None and pod["url"] == "" and number is not None:
+				return no_podcast_number(podcast["name"],ep_num)
 			else:
-				response = build_response(pod["url"],card)
-			return response
+				card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
+				if 'value' in slots['number'] and 'value' in slots['timeframe']:
+					offset = get_offset_miliseconds(slots['number']["value"],slots['timeframe']["value"])
+					if offset > pod["duration"] and pod["duration"] > 0:
+						offset = 0
+					response = build_response(pod["url"],card,offset)
+				else:
+					response = build_response(pod["url"],card)
+				return response
+		elif type(pod) == list:
+			print("List")
+			
 	else: 
 		response = no_podcast_response(text)
 		return response
