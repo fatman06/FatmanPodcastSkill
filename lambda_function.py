@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "0.4.15"
+version = "0.7.19"
 print("Pod Buddy Version " + version + " - Release")
 
 import json
@@ -76,7 +76,8 @@ def lambda_handler(event, context):
     try:
 	    if event['session']["new"]:
 	    	try:
-	    		add_customer_ddb(event['session']['user']['userId'])
+	    		if event['session']['user']['userId'] !="amzn1.ask.account.TEST":
+	    			add_customer_ddb(event['session']['user']['userId'])
 	    	except:
 	    		print("Did Not Add Customer ID")
 	    		x = 1 

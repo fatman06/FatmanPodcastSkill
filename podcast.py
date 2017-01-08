@@ -10,9 +10,10 @@ import traceback
 import alexa as a
 import uuid
 import time
+from datetime import *
 import boto3
 # --------------- Podcast Response -------------
-def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False):
+def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False,podtrac=False):
 
     #'http://feeds.feedburner.com/DougLovesMovies'
 	try:
@@ -28,11 +29,11 @@ def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=F
 		reddit_feed=[]
 
 		if guest is not None:
-			return return_guest_object(item, guest,redirect)
+			return return_guest_object(item, guest,redirect,podtrac)
 		elif allfeed is not None:
 			return return_all_object(item)
 		else:
-			return return_recent_object(item,redirect)
+			return return_recent_object(item,redirect,podtrac)
 	except urllib2.HTTPError:
 		print("Stream Is Bad: " + stream_url)
 		#traceback.print_exc()
@@ -43,7 +44,7 @@ def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=F
 	except etree.ParseError:
 		None
 
-def return_guest_object(item, guest,redirect=False):
+def return_guest_object(item, guest,redirect=False,podtrac=False):
 
 	url = ""
 	orig_url = ""
@@ -92,7 +93,9 @@ def return_guest_object(item, guest,redirect=False):
 			continue
 	if redirect and orig_url != "":
 		response = urllib2.urlopen(orig_url)
-		url = response.geturl().replace("http:","https:")
+		url = response.geturl().replace("http:","https:").replace("//hwcdn.libsyn.com","//secure-hwcdn.libsyn.com").replace("ec.libsyn.com","secure-hwcdn.libsyn.com")
+	elif podtrac and orig_url != "":
+		url = "https://www.podtrac.com/pts/redirect.mp3/{}".format(orig_url.replace("www.podtrac.com/pts/redirect.mp3/","").replace("https://","http://"))
 
 	return {"url": url, "description": desc,"title" : title, "duration":duration}
 
@@ -118,7 +121,7 @@ def return_all_object(item,stop=10):
 			continue
 
 	return t
-def return_recent_object(item,redirect=False):
+def return_recent_object(item,redirect=False,podtrac=False):
 	url = ""
 	orig_url = ""
 	desc = ""
@@ -158,7 +161,9 @@ def return_recent_object(item,redirect=False):
 		# 	continue
 	if redirect and orig_url != "":
 		response = urllib2.urlopen(orig_url)
-		url = response.geturl().replace("http:","https:")
+		url = response.geturl().replace("http:","https:").replace("hwcdn.libsyn.com","secure-hwcdn.libsyn.com").replace("ec.libsyn.com","secure-hwcdn.libsyn.com")
+	elif podtrac and orig_url != "":
+		url = "https://www.podtrac.com/pts/redirect.mp3/{}".format(orig_url.replace("www.podtrac.com/pts/redirect.mp3/","").replace("https://","http://"))
 	return {"url": url, "description": desc, "title" : title,"duration":duration}
 
 
@@ -199,7 +204,21 @@ def update_no_podcast(podcast):
 		},
 		ReturnValues="NONE"
 		)
-
+def save_podcast_play(podcast):
+	client = boto3.resource('dynamodb',region_name='us-east-1')
+	table = client.Table('pb_play_totals')
+	today = datetime.today()
+	table.update_item(
+		Key={
+			'podcast_name' : podcast,
+			'date_week' : today.strftime("%Y-%U")
+		  },
+		UpdateExpression="ADD total_count :num",
+		ExpressionAttributeValues = {
+			":num" : 1
+		},
+		ReturnValues="NONE"
+		)
 def no_podcast_response(podcast):
 	update_no_podcast(podcast)
 	return a.basic_response("Was Unable to Locate A Podcast by the name: " + podcast)
@@ -245,8 +264,18 @@ def intent_recent_podcast(intent_request, session):
 			redirect = True
 		else:
 			redirect = False
+		if 'podtrac' in podcast:
+			podtrac = True
+		else:
+			podtrac = False
 
-		pod = recent_podcast_stream(feed,guest,None,10,redirect)
+		try:
+			if session['user']['userId'] !="amzn1.ask.account.TEST":
+				save_podcast_play(podcast["name"])
+		except:
+			r = 1
+
+		pod = recent_podcast_stream(feed,guest,None,10,redirect,podtrac)
 		pod["image"] = podcast["image"]
 		pod["podcast"] = podcast["name"]
 		if guest is not None and pod["url"] == "":
@@ -278,7 +307,11 @@ def intent_list_recent_podcast(intent_request,session):
 	if podcast is not None:
 		feed = podcast["stream"]
 		pod = recent_podcast_stream(feed,None,True,10)
-		speech = "Look at the Alexa App to see a list of recent episodes of " + podcast["name"]
+		try:
+			speech = "The most recent episode of " + podcast["name"] + " is titled " + pod[0]["title"] + " ...Look at the Alexa App to see a list of recent episodes of " + podcast["name"]
+		except:
+			speech = "Look at the Alexa App to see a list of recent episodes of " + podcast["name"]
+			
 		title = "Recent Episodes of: " + podcast["name"]
 		response = a.build_response_with_card(speech,title,streamToList(pod),"Standard","")
 		return response
