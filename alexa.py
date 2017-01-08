@@ -6,6 +6,8 @@ import re
 from xml.etree import ElementTree as etree
 from podcast import *
 
+from confirmrequest import *
+
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session,cardtext=None):
@@ -160,6 +162,8 @@ def on_intent(intent_request, session):
         return get_help_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent" or intent_name == "AMAZON.PauseIntent":
         return handle_session_end_request()
+    elif intent_name == "ConfirmRequest"
+        return handle_confirm_request(intent,session)
     elif intent_name == "AMAZON.ResumeIntent":
     	try:
     		return build_response(intent_request["context"]["AudioPlayer"]["token"], None, intent_request["context"]["AudioPlayer"]["offsetInMilliseconds"]) 
