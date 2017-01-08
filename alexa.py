@@ -173,7 +173,7 @@ def on_intent(intent_request, session):
             response = a.basic_response_reprompt("I was unable to resume your podcast. Which podcast would you like to listen to? ","Which podcast would you like to listen to",False)
             response["sessionAttributes"] = {"prevIntent" : "AMAZON.ResumeIntent"}
             return response
-    elif intent_name == "RecentPodcast" or intent_name == "RecentPodcastEpisode":
+    elif intent_name == "RecentPodcast" or intent_name == "RecentPodcastEpisode" or intent_name == "RecentPodcastShuffle":
     	return intent_recent_podcast(intent, session)
     elif intent_name == "ListRecentPodcast":
     	return intent_list_recent_podcast(intent,session)

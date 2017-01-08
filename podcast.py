@@ -10,11 +10,12 @@ import traceback
 import alexa as a
 import uuid
 import time
+import random
 from lambda_function import *
 from datetime import *
 import boto3
 # --------------- Podcast Response -------------
-def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False,podtrac=False):
+def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False,podtrac=False,shuffle=None):
 
     #'http://feeds.feedburner.com/DougLovesMovies'
 	try:
@@ -33,6 +34,8 @@ def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=F
 			return return_guest_object(item, guest,redirect,podtrac)
 		elif allfeed is not None:
 			return return_all_object(item)
+		elif shuffle is not None:
+			return return_rando_object(item,redirect,podtrac)
 		else:
 			return return_recent_object(item,redirect,podtrac)
 	except urllib2.HTTPError:
@@ -124,6 +127,7 @@ def return_all_object(item,stop=10):
 			continue
 
 	return t
+
 def return_recent_object(item,redirect=False,podtrac=False):
 	url = ""
 	orig_url = ""
@@ -169,6 +173,43 @@ def return_recent_object(item,redirect=False,podtrac=False):
 		url = "https://www.podtrac.com/pts/redirect.mp3/{}".format(orig_url.replace("www.podtrac.com/pts/redirect.mp3/","").replace("https://","http://"))
 	return {"url": url, "description": desc, "title" : title,"duration":duration}
 
+def return_rando_object(item,redirect=False,podtrac=False):
+	url = ""
+	orig_url = ""
+	desc = ""
+	title = ""
+	duration = 0
+
+	for attempt in range(5):
+		total_items = len(item) - 1 
+		rando_num = random.randint(0,total_items)
+		try: 
+			entry = item[rando_num]
+			orig_url = entry.find('enclosure').attrib['url']
+			url = orig_url.replace('http:', 'https:')
+			try:
+				duration = int(entry.find('enclosure').attrib['length'])
+			except KeyError:
+				duration = 0
+			except ValueError:
+				duration = 0
+
+			if entry.find('description') is not None:
+				desc = desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
+			title = entry.find('title').text.strip()
+			if re.search(r'(?i)mp3',url):
+				break
+			else: 
+				continue
+		except AttributeError: 
+			continue
+
+	if redirect and orig_url != "":
+		response = urllib2.urlopen(orig_url)
+		url = response.geturl().replace("http:","https:").replace("hwcdn.libsyn.com","secure-hwcdn.libsyn.com").replace("ec.libsyn.com","secure-hwcdn.libsyn.com")
+	elif podtrac and orig_url != "":
+		url = "https://www.podtrac.com/pts/redirect.mp3/{}".format(orig_url.replace("www.podtrac.com/pts/redirect.mp3/","").replace("https://","http://"))
+	return {"url": url, "description": desc, "title" : title,"duration":duration}
 
 def build_response(url, card, offset=0):
     response =  {
@@ -250,6 +291,7 @@ def intent_recent_podcast(intent_request, session):
 	slots = intent_request['slots']
 	number = None
 	ep_num = None
+	shuffle = None
 	if 'value' in slots["podcast"]:
 		text = slots['podcast']['value'].lower()
 	else:
@@ -266,13 +308,18 @@ def intent_recent_podcast(intent_request, session):
 			guest = None
 
 	except KeyError:
-		if intent_request["name"] == "RecentPodcastEpisode":
-			if 'value' in slots['epnumber']:
-				guest = "(\\s|eps|#|episode|ep|^|E|Hr|-){}(\\s|-|:|,|\\.)".format(slots['epnumber']['value'])
-				number = True
-				ep_num = slots['epnumber']['value']
-			else:
-				guest = None
+		guest = None
+		e = 0
+
+	if intent_request["name"] == "RecentPodcastEpisode":
+		if 'value' in slots['epnumber']:
+			guest = "(\\s|eps|#|episode|ep|^|E|Hr|-){}(\\s|-|:|,|\\.)".format(slots['epnumber']['value'])
+			number = True
+			ep_num = slots['epnumber']['value']
+		else:
+			guest = None
+	elif intent_request["name"] == "RecentPodcastShuffle":
+		shuffle = True
 
 	podcast = find_podcast_regex(text)
 	if podcast is not None:
@@ -292,7 +339,7 @@ def intent_recent_podcast(intent_request, session):
 		except:
 			r = 1
 
-		pod = recent_podcast_stream(feed,guest,None,10,redirect,podtrac)
+		pod = recent_podcast_stream(feed,guest,None,10,redirect,podtrac,shuffle)
 		pod["image"] = podcast["image"]
 		pod["podcast"] = podcast["name"]
 		if guest is not None and pod["url"] == "" and number is None:
