@@ -89,6 +89,8 @@ def lambda_handler(event, context):
 					return handle_request_event(event,context)
 				elif event['session']["attributes"]["prevIntent"] == "help":
 				   return handle_request_event(event,context)
+				elif event["request"]["intent"]["name"] == "ConfirmRequest":
+					return handle_request_event(event,context)
 				elif event['session']['attributes']['prevIntent'] == "ListRecentPodcast":
 					event["request"]["intent"]["name"] = "ListRecentPodcast"
 					return handle_request_event(event,context)
