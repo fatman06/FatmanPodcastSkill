@@ -6,7 +6,7 @@ import re
 from xml.etree import ElementTree as etree
 from podcast import *
 
-from confirmrequest import *
+from confirm_request import *
 
 # --------------- Helpers that build all of the responses ----------------------
 
