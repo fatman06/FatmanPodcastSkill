@@ -308,12 +308,16 @@ def intent_list_recent_podcast(intent_request,session):
 		feed = podcast["stream"]
 		pod = recent_podcast_stream(feed,None,True,10)
 		try:
-			speech = "The most recent episode of " + podcast["name"] + " is titled " + pod[0]["title"] + " ...Look at the Alexa App to see a list of recent episodes of " + podcast["name"]
+			speech = "The most recent episode of " + podcast["name"] + " is titled " + pod[0]["title"] + " ...Look at the Alexa App to see a list of recent episodes of " + podcast["name"] + " . . . Would you like to play the most recent episode now? "
+			prompt = True
 		except:
 			speech = "Look at the Alexa App to see a list of recent episodes of " + podcast["name"]
-			
+			prompt = False
+
 		title = "Recent Episodes of: " + podcast["name"]
 		response = a.build_response_with_card(speech,title,streamToList(pod),"Standard","")
+		response["sessionAttributes"] = {"stream" : pod[0]["url"],"title": pod[0]["title"],"name":podcast["name"] }
+		response["response"]["shouldEndSession"] = prompt
 		return response
 	else:
 		response = no_podcast_response(text)
