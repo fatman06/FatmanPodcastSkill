@@ -162,7 +162,7 @@ def on_intent(intent_request, session):
         return get_help_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent" or intent_name == "AMAZON.PauseIntent":
         return handle_session_end_request()
-    elif intent_name == "ConfirmRequest"
+    elif intent_name == "ConfirmRequest":
         return handle_confirm_request(intent,session)
     elif intent_name == "AMAZON.ResumeIntent":
     	try:
