@@ -15,18 +15,19 @@ from lambda_function import *
 from datetime import *
 import boto3
 # --------------- Podcast Response -------------
-def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False,podtrac=False,shuffle=None):
 
+def get_item_streams(url):
+	req =  urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+	reddit_file = urllib2.urlopen(req)
+	reddit_data = reddit_file.read()
+	reddit_file.close()
+	reddit_root = etree.fromstring(reddit_data)
+	return reddit_root.findall('channel/item')
+
+def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=False,podtrac=False):
     #'http://feeds.feedburner.com/DougLovesMovies'
 	try:
-		req = urllib2.Request(stream_url, headers={'User-Agent' : "Magic Browser"}) 
-		reddit_file = urllib2.urlopen(req)
-		reddit_data = reddit_file.read()
-		reddit_file.close()
-
-		# entire feed
-		reddit_root = etree.fromstring(reddit_data)
-		item = reddit_root.findall('channel/item')
+		item = get_item_streams(stream_url)
 		url = ""
 		reddit_feed=[]
 
@@ -34,8 +35,6 @@ def recent_podcast_stream(stream_url, guest=None,allfeed=None,stop=10,redirect=F
 			return return_guest_object(item, guest,redirect,podtrac)
 		elif allfeed is not None:
 			return return_all_object(item)
-		elif shuffle is not None:
-			return return_rando_object(item,redirect,podtrac)
 		else:
 			return return_recent_object(item,redirect,podtrac)
 	except urllib2.HTTPError:
@@ -57,18 +56,12 @@ def return_guest_object(item, guest,redirect=False,podtrac=False):
 	duration = 0
 	g = re.sub(re.compile("['!$&]"),"(.|)",guest).encode("utf8").replace(" ",".+")
 	for entry in item:
-	    # get description, url, and thumbnail
-	    # print(entry.find('description').text)
-	    #print(re.match(r'(?i)geoff tate', entry.find('description').text.strip()))
-		#print(entry.find('description').text)
+
 		if (entry.find('description') is not None):
 			t = entry.find('description').text
 		else:
 			t = " "
-			#print(t)
 
-		#print(entry.find('description').text is None)
-		#print (t)
 		title = entry.find('title').text.strip()
 		desc = ""
 		url = ""
@@ -173,45 +166,14 @@ def return_recent_object(item,redirect=False,podtrac=False):
 		url = "https://www.podtrac.com/pts/redirect.mp3/{}".format(orig_url.replace("www.podtrac.com/pts/redirect.mp3/","").replace("https://","http://"))
 	return {"url": url, "description": desc, "title" : title,"duration":duration}
 
-def return_rando_object(item,redirect=False,podtrac=False):
-	url = ""
-	orig_url = ""
-	desc = ""
-	title = ""
-	duration = 0
+def build_response(url, card, offset=0,token=None):
+    if token is None:
+	    token = {
+	    	"url": url,
+	    	"type": 1
+	    }
+    print(str(token))
 
-	for attempt in range(5):
-		total_items = len(item) - 1 
-		rando_num = random.randint(0,total_items)
-		try: 
-			entry = item[rando_num]
-			orig_url = entry.find('enclosure').attrib['url']
-			url = orig_url.replace('http:', 'https:')
-			try:
-				duration = int(entry.find('enclosure').attrib['length'])
-			except KeyError:
-				duration = 0
-			except ValueError:
-				duration = 0
-
-			if entry.find('description') is not None:
-				desc = desc = cleanhtml(cleanCDATA(entry.find('description').text.strip()))
-			title = entry.find('title').text.strip()
-			if re.search(r'(?i)mp3',url):
-				break
-			else: 
-				continue
-		except AttributeError: 
-			continue
-
-	if redirect and orig_url != "":
-		response = urllib2.urlopen(orig_url)
-		url = response.geturl().replace("http:","https:").replace("hwcdn.libsyn.com","secure-hwcdn.libsyn.com").replace("ec.libsyn.com","secure-hwcdn.libsyn.com")
-	elif podtrac and orig_url != "":
-		url = "https://www.podtrac.com/pts/redirect.mp3/{}".format(orig_url.replace("www.podtrac.com/pts/redirect.mp3/","").replace("https://","http://"))
-	return {"url": url, "description": desc, "title" : title,"duration":duration}
-
-def build_response(url, card, offset=0):
     response =  {
         "response": {
             "directives": [
@@ -220,7 +182,7 @@ def build_response(url, card, offset=0):
                     "playBehavior": "REPLACE_ALL",
                     "audioItem": {
                         "stream": {
-                            "token": url,
+                            "token": str(token),
                             "url": url,
                             "offsetInMilliseconds": offset
                         }
@@ -235,6 +197,7 @@ def build_response(url, card, offset=0):
     	response["response"]["card"] = card["card"]
 
     return response
+
 def update_no_podcast(podcast):
 	client = boto3.resource('dynamodb',region_name='us-east-1')
 	table = client.Table('pb_not_found')
@@ -291,7 +254,7 @@ def intent_recent_podcast(intent_request, session):
 	slots = intent_request['slots']
 	number = None
 	ep_num = None
-	shuffle = None
+
 	if 'value' in slots["podcast"]:
 		text = slots['podcast']['value'].lower()
 	else:
@@ -318,8 +281,6 @@ def intent_recent_podcast(intent_request, session):
 			ep_num = slots['epnumber']['value']
 		else:
 			guest = None
-	elif intent_request["name"] == "RecentPodcastShuffle":
-		shuffle = True
 
 	podcast = find_podcast_regex(text)
 	if podcast is not None:
@@ -339,9 +300,8 @@ def intent_recent_podcast(intent_request, session):
 		except:
 			r = 1
 
-		pod = recent_podcast_stream(feed,guest,None,10,redirect,podtrac,shuffle)
+		pod = recent_podcast_stream(feed,guest,None,10,redirect,podtrac)
 		if type(pod) == dict:
-			print("Hi")
 			pod["image"] = podcast["image"]
 			pod["podcast"] = podcast["name"]
 			if guest is not None and pod["url"] == "" and number is None:
@@ -349,18 +309,28 @@ def intent_recent_podcast(intent_request, session):
 			elif guest is not None and pod["url"] == "" and number is not None:
 				return no_podcast_number(podcast["name"],ep_num)
 			else:
+				if guest is None:
+					token = {
+						"url" : pod["url"],
+						"index" : [0],
+						"name" : pod["podcast"],
+						"type" : 3
+					}
+				else:
+					token = None
+
 				card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
 				if 'value' in slots['number'] and 'value' in slots['timeframe']:
 					offset = get_offset_miliseconds(slots['number']["value"],slots['timeframe']["value"])
 					if offset > pod["duration"] and pod["duration"] > 0:
 						offset = 0
-					response = build_response(pod["url"],card,offset)
+					response = build_response(pod["url"],card,offset,token)
 				else:
-					response = build_response(pod["url"],card)
+					response = build_response(pod["url"],card,0,token)
 				return response
 		elif type(pod) == list:
 			print("List")
-			
+
 	else: 
 		response = no_podcast_response(text)
 		return response
