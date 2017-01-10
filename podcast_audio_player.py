@@ -1,4 +1,5 @@
 from __future__ import print_function
+from alexa import *
 from podcast import *
 from podcast_multiple import *
 from podcast_map import *
@@ -40,7 +41,7 @@ def build_enqueue_response(newstream,prevtoken,ttype=2):
     }
 	return response
 def on_playback_next_handling(request,context): 
-	token = ast.literal_eval(context["AudioPlayer"]["token"])
+	token = parseToken(context["AudioPlayer"]["token"])
 	if token["type"] == 1:
 		print("Token Type One Do Nothing")
 	elif token["type"] == 2:
@@ -67,7 +68,7 @@ def on_playback_next_handling(request,context):
 
 
 def on_playback_started_handling(request,context):
-	token = ast.literal_eval(context["AudioPlayer"]["token"])
+	token = parseToken(context["AudioPlayer"]["token"])
 	if token["type"] == 1: 
 		print("Token Type 1 Do Nothing")
 	elif token["type"] == 2:
@@ -101,7 +102,7 @@ def on_media_direction_handling(direction,context,intent):
 		n = -1
 	else: 
 		n = 1
-	token = ast.literal_eval(context["AudioPlayer"]["token"])
+	token = parseToken(context["AudioPlayer"]["token"])
 	if 'value' in intent["slots"]["number"] and 'value' in intent["slots"]["timeframe"]:
 		offset = get_offset_miliseconds(intent["slots"]["number"]["value"],intent["slots"]["timeframe"]["value"])
 	else:
