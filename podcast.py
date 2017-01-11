@@ -113,8 +113,12 @@ def return_all_object(item,stop=10):
 				desc = cleanhtml(cleanCDATA(entry.find('description').text.strip().encode("utf8")))
 
 			title = entry.find('title').text.strip()
-			t.append({"url": url, "description": desc, "title" : title})
-			i = i+1
+			
+			if re.search(r'(?i)mp3',url):
+				i = i+1
+				t.append({"url": url, "description": desc, "title" : title})
+			else:
+				continue
 
 		except AttributeError:
 			continue
