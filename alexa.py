@@ -184,7 +184,7 @@ def on_intent(intent_request, session, context=None):
     elif intent_name == "AMAZON.ResumeIntent":
     	try:
             token = parseToken(intent_request["context"]["AudioPlayer"]["token"])
-    		return build_response(token["url"], None, intent_request["context"]["AudioPlayer"]["offsetInMilliseconds"],token) 
+            return build_response(token["url"], None, intent_request["context"]["AudioPlayer"]["offsetInMilliseconds"],token) 
     	except:
             print(intent_request)
             print("Resume Failed")
