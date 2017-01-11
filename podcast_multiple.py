@@ -7,7 +7,7 @@ import re
 from xml.etree import ElementTree as etree
 from podcast_map import *
 import traceback
-import alexa as a
+import alexa as alexa
 import uuid
 import time
 import random
@@ -167,7 +167,7 @@ def intent_shuffle_stream(intent_request, session):
 	if 'value' in slots["podcast"]:
 		text = slots['podcast']['value'].lower()
 	else:
-		response = a.basic_response_reprompt("I was unable to hear a Podcast name. Which podcast would you like to listen to? ","Which Podcast would you like to listen to?",False)
+		response = alexa.basic_response_reprompt("I was unable to hear a Podcast name. Which podcast would you like to listen to? ","Which Podcast would you like to listen to?",False)
 		response["sessionAttributes"] = {"prevIntent" : "RecentPodcast"}
 		return response
 
@@ -177,9 +177,10 @@ def intent_shuffle_stream(intent_request, session):
 		print(pod)
 		pod["image"] = podcast["image"]
 		pod["podcast"] = podcast["name"]
-		card = a.build_card(pod["title"],pod["description"],"Standard",pod["image"])
+		card = alexa.build_card(pod["title"],pod["description"],"Standard",pod["image"])
 		response = build_shuffle_response_new(pod,card,pod["index"])
 		return response
 	else:
 		print("handle intent_shuffle_stream exception")
+		return alexa.basic_response_reprompt("I was unable to hear a Podcast name. Which podcast would you like to listen to? ","Which Podcast would you like to listen to?",False)
 
