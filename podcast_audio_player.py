@@ -107,15 +107,20 @@ def on_playback_started_handling(request,context):
 def on_media_direction_handling(direction,context,intent):
 	if direction == "rewind":
 		n = -1
+		text = "Rewind"
 	else: 
 		n = 1
-	token = alexa.parseToken(context["AudioPlayer"]["token"])
-	if 'value' in intent["slots"]["number"] and 'value' in intent["slots"]["timeframe"]:
-		offset = get_offset_miliseconds(intent["slots"]["number"]["value"],intent["slots"]["timeframe"]["value"])
-	else:
-		offset = get_offset_miliseconds(30,"seconds") * n
-	new_offset = (context["AudioPlayer"]["offsetInMilliseconds"] + offset)
-	return build_response(token["url"], None, new_offset,token)
+		text = "Fast Forward"
+	try:
+		token = alexa.parseToken(context["AudioPlayer"]["token"])
+		if 'value' in intent["slots"]["number"] and 'value' in intent["slots"]["timeframe"]:
+			offset = get_offset_miliseconds(intent["slots"]["number"]["value"],intent["slots"]["timeframe"]["value"])
+		else:
+			offset = get_offset_miliseconds(30,"seconds") * n
+		new_offset = (context["AudioPlayer"]["offsetInMilliseconds"] + offset)
+		return build_response(token["url"], None, new_offset,token)
+	except:
+		return alexa.basic_response("I am unable to {} at this point in the skill".format(text))
 
 
 
