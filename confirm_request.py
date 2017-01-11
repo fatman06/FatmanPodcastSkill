@@ -18,7 +18,13 @@ def get_confirm_answer(confirm):
 def confirmation_play_recent_podcast(session_attr):
 	try:
 		print("Send Most Recent Podcast")
-		response = build_response(session_attr["stream"],None)
+		token = {
+			"url" : session_attr["stream"],
+			"name" : session_attr["name"],
+			"index": [0],
+			"type" : 3
+		}
+		response = build_response(session_attr["stream"],None,0,token)
 		print(session)
 	except:
 		print("Handle Exception confirmation_play_recent_podcast")
