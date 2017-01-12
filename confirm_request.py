@@ -25,7 +25,6 @@ def confirmation_play_recent_podcast(session_attr):
 			"type" : 3
 		}
 		response = build_response(session_attr["stream"],None,0,token)
-		print(session)
 	except:
 		print("Handle Exception confirmation_play_recent_podcast")
 		response = alexa.basic_response("Something unexpected went wrong, please try again")
