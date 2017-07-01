@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "1.0.44"
+version = "1.0.61"
 stage = "Release"
 print("Pod Buddy Version " + version + " - " + stage)
 
@@ -11,6 +11,8 @@ from alexa import *
 from podcast import *
 from podcast_map import *
 from podcast_audio_player import *
+from voicelabs import VoiceInsights
+
 import boto3
 
 import logging
@@ -41,9 +43,12 @@ def handle_request_event(event,context):
 
 	elif event['request']['type'] == "SessionEndedRequest":
 	    return on_session_ended(event['request'], event['session'])
+	elif event['request']['type'] == "AudioPlayer.PlaybackFailed":
+		print(event)
 	elif event['request']['type'] == "AudioPlayer.PlaybackNearlyFinished":
 		return on_playback_started_handling(event["request"],event["context"])
 	elif event['request']['type'] == "AudioPlayer.PlaybackStopped" or event['request']['type'] == "AudioPlayer.PlaybackStarted":
+		print(event["context"])
 		x = 1
 	elif event['request']['type'] == "System.ExceptionEncountered":
 		print("System.ExceptionEncountered: {}".format(event['request']))
@@ -90,7 +95,7 @@ def lambda_handler(event, context):
     try:
 	    if event['session']["new"]:
 	    	try:
-	    		if event['session']['user']['userId'] !="amzn1.ask.account.TEST" and getStage() == "Release":
+	    		if event['session']['user']['userId'] !="amzn1.ask.account.TEST":
 	    			add_customer_ddb(event['session']['user']['userId'])
 	    	except:
 	    		print("Did Not Add Customer ID")

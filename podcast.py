@@ -81,6 +81,8 @@ def return_guest_object(item, guest,redirect=False,podtrac=False):
 
 				if re.search(r'(?i)mp3',url):
 					break
+				if re.search(r'(?i)m4a'):
+					continue
 				else:
 					#print("Stream Does Not Have Mp3")
 					continue
@@ -299,7 +301,7 @@ def intent_recent_podcast(intent_request, session):
 			podtrac = False
 
 		try:
-			if session['user']['userId'] !="amzn1.ask.account.TEST" and getStage() == "Release":
+			if session['user']['userId'] !="amzn1.ask.account.TEST":
 				save_podcast_play(podcast["name"])
 		except:
 			r = 1

@@ -10,7 +10,10 @@ from podcast_audio_player import *
 import ast
 
 from confirm_request import *
+from voicelabs import VoiceInsights
 
+appToken = 'd1502400-3c2b-11a7-13ba-02f814b60257'
+vi = VoiceInsights()
 # --------------- Helpers that build all of the responses ----------------------
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session,cardtext=None):
@@ -135,7 +138,7 @@ def handle_session_end_request():
 
 def on_session_started(session_started_request, session):
     """ Called when the session starts """
-
+    vi.initialize(appToken, session)
     print("on_session_started requestId=" + session_started_request['requestId']
           + ", sessionId=" + session['sessionId'])
 
@@ -156,51 +159,52 @@ def on_launch(launch_request, session):
 
 def on_intent(intent_request, session, context=None):
     """ Called when the user specifies an intent for this skill """
-
+    vi.initialize(appToken, session)
     print("on_intent requestId=" + intent_request["request"]['requestId'] +
           ", sessionId=" + session['sessionId'])
 
     intent = intent_request["request"]['intent']
     intent_name = intent_request["request"]['intent']['name']
-
+    response = None
     # Dispatch to your skill's intent handlers
     if intent_name == "AMAZON.HelpIntent":
-        return get_help_response()
+        response = get_help_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent" or intent_name == "AMAZON.PauseIntent":
-        return handle_session_end_request()
+        response = handle_session_end_request()
     elif intent_name == "ConfirmRequest":
-        return handle_confirm_request(intent,session) 
+        response = handle_confirm_request(intent,session) 
     elif intent_name == "SkipAhead":
         if context is not None:
-            return on_media_direction_handling("forward",context,intent)
+            response = on_media_direction_handling("forward",context,intent)
         else:
             print("on_intent SkipAhead No Context")
     elif intent_name == "AMAZON.NextIntent":
         if context is not None:
-            return on_playback_next_handling(intent,context)
+            response = on_playback_next_handling(intent,context)
         else:
             print("on_intent NextIntent No context")
 
     elif intent_name == "AMAZON.ResumeIntent":
     	try:
             token = parseToken(intent_request["context"]["AudioPlayer"]["token"])
-            return build_response(token["url"], None, intent_request["context"]["AudioPlayer"]["offsetInMilliseconds"],token) 
+            response = build_response(token["url"], None, intent_request["context"]["AudioPlayer"]["offsetInMilliseconds"],token) 
     	except:
             print(intent_request)
             print("Resume Failed")
             response = a.basic_response_reprompt("I was unable to resume your podcast. Which podcast would you like to listen to? ","Which podcast would you like to listen to",False)
             response["sessionAttributes"] = {"prevIntent" : "AMAZON.ResumeIntent"}
-            return response
+            
     elif intent_name == "RecentPodcast" or intent_name == "RecentPodcastEpisode":
-    	return intent_recent_podcast(intent, session)
+    	response = intent_recent_podcast(intent, session)
     elif intent_name == "RecentPodcastShuffle":
-        return intent_shuffle_stream(intent,session)
+        response = intent_shuffle_stream(intent,session)
     elif intent_name == "ListRecentPodcast":
-    	return intent_list_recent_podcast(intent,session)
+    	response = intent_list_recent_podcast(intent,session)
     else:
         print("Invalid Intent: " + intent_name)
         raise ValueError("Invalid intent")
-
+    vi.track(intent_name, intent_request, response)
+    return response
 
 def on_session_ended(session_ended_request, session):
     """ Called when the user ends the session.
