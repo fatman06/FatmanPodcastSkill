@@ -24,6 +24,7 @@ scrape.py
 tools/*
 test/*
 output/*
+versions/*
 validation*
 validation/* # Packages #
 ############
