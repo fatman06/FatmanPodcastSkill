@@ -12,6 +12,7 @@
 *.tsv
 
 build.py
+build-beta.py
 test.py
 test_event.py
 zipfile.py
