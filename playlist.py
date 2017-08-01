@@ -30,7 +30,7 @@ def intent_playlist_podcast(intent,session):
 			return alexa.basic_response("I was not able to found a playlist named {}".format(intent["slots"]["keywords"]["value"]))
 	else: 
 		description = "It appears your account is not currently link. You can use Pod Buddy without linking your account, however the Playlist feature requires an account to be linked.\n\nSelect 'Skills' from the menu > Select 'Your Skills' > Locate Pod Buddy > Select 'Link Account' and use the Login with Amazon. \n\nYou Can Create a Playlist by visiting \n\n https://fatmandev.net/playlist"
-		return alexa.build_response_with_card("To utilize the Playlist feature you must link your account. Visit the Alexa App to link your account","Account Not Linked",description,"Standard")
+		return alexa.build_response_with_card("To utilize the Playlist feature you must link your account. Visit the Alexa App to link your account","Account Not Linked",description,"LinkAccount")
 
 def next_playlist_podcast(token):
 	accountId = token["accountId"]
