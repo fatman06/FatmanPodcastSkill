@@ -183,6 +183,11 @@ def on_intent(intent_request, session, context=None):
 			response = on_media_direction_handling("forward",context,intent)
 		else:
 			print("on_intent SkipAhead No Context")
+	elif intent_name == "GoBack":
+		if context is not None:
+			response = on_media_direction_handling("rewind",context,intent)
+		else:
+			print("on_intent GoBack No Context")
 	elif intent_name == "AMAZON.NextIntent":
 		if context is not None:
 			response = on_playback_next_handling(intent,context)
