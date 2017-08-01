@@ -3,22 +3,31 @@ from podcast import *
 from podcast_multiple import *
 from podcast_map import *
 import alexa as alexa
+import playlist
 import ast
+import traceback
 
 # Token Types:
 # 1 - Single Stream
 # 2 - Shuffle of podcast
 # 3 - Streams in Order Newest to Oldest
+# 4 - Playlists
 
-def build_enqueue_response(newstream,prevtoken,ttype=2):
-	prev_index = list(prevtoken["index"])
-	prev_index.append(newstream["index"])
-	new_token = {
-    	"url": newstream["url"],
-    	"type": ttype,
-    	"index": prev_index,
-    	"name" : newstream["podcast"]
-    }
+def build_enqueue_response(newstream,prevtoken,ttype=2,ntoken=None):
+	if ttype == 2 or ttype == 3:
+		prev_index = list(prevtoken["index"])
+		prev_index.append(newstream["index"])
+
+	if ntoken is None:
+		new_token = {
+	    	"url": newstream["url"],
+	    	"type": ttype,
+	    	"index": prev_index,
+	    	"name" : newstream["podcast"]
+	    }
+	else:
+		new_token = ntoken
+
 	response = {
         "response": {
             "directives": [
@@ -43,6 +52,7 @@ def build_enqueue_response(newstream,prevtoken,ttype=2):
 def on_playback_next_handling(request,context): 
 	try:
 		token = alexa.parseToken(context["AudioPlayer"]["token"])
+		print(token["type"])
 		if token["type"] == 1:
 			print("Token Type One Do Nothing")
 			return alexa.basic_response("No more episodes in this playist")
@@ -65,9 +75,12 @@ def on_playback_next_handling(request,context):
 				return build_response(pod["url"],None,0,token)
 			else:
 				return alexa.basic_response("I was unable to determine the next episode to retrieve")
+		elif token["type"] == 4:
+			return playlist.next_playlist_podcast(token)
 		else:
 			return alexa.basic_response("Something Unexpected happened, please try again to ask Pod Buddy to play a podcast")
 	except:
+		traceback.print_exc()
 		return alexa.basic_response("Something Unexpected happened, please try again to ask Pod Buddy to play a podcast")
 
 
@@ -99,6 +112,8 @@ def on_playback_started_handling(request,context):
 					return alexa.basic_response("I was unable to get the next episode of " + podcast["name"] )
 			else:
 				return alexa.basic_response("I was unable to determine the next episode to retrieve")
+		elif token["type"] == 4:
+			return playlist.enqueue_next_playlist(token)
 		else:
 			return alexa.basic_response("Something Unexpected happened, please try again to ask Pod Buddy to play a podcast")
 	except:

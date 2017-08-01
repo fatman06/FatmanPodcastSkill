@@ -7,6 +7,7 @@ from xml.etree import ElementTree as etree
 from podcast import *
 from podcast_multiple import *
 from podcast_audio_player import *
+from playlist import *
 import ast
 
 from confirm_request import *
@@ -202,6 +203,8 @@ def on_intent(intent_request, session, context=None):
 		response = intent_recent_podcast(intent, session)
 	elif intent_name == "RecentPodcastShuffle":
 		response = intent_shuffle_stream(intent,session)
+	elif intent_name == "PlayPlaylist":
+		response = intent_playlist_podcast(intent,session)
 	elif intent_name == "ListRecentPodcast":
 		response = intent_list_recent_podcast(intent,session)
 	else:

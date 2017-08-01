@@ -386,3 +386,12 @@ def streamToList(lists):
 		t.append(l["title"])
 	return "-" + ("\n-").join(t)
 
+def build_url(orig_url,podtrac=None,redirect=None):
+	url = orig_url.replace('http:', 'https:')
+	if redirect and orig_url != "":
+		response = urllib2.urlopen(orig_url)
+		url = response.geturl().replace("http:","https:").replace("//hwcdn.libsyn.com","//secure-hwcdn.libsyn.com").replace("ec.libsyn.com","secure-hwcdn.libsyn.com")
+	elif podtrac and orig_url != "":
+		url = "https://www.podtrac.com/pts/redirect.mp3/{}".format(orig_url.replace("www.podtrac.com/pts/redirect.mp3/","").replace("https://","http://"))
+	return url
+

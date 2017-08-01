@@ -1,5 +1,5 @@
 from __future__ import print_function
-version = "2.0.0"
+version = "2.0.11"
 stage = "Beta"
 print("Pod Buddy Version " + version + " - " + stage)
 
